@@ -91,7 +91,7 @@ public class VariableNamesTheme {
         System.out.println("\nПолное имя работника месяца = " + fullNameBestEmloyeeMonth);
 
         // заголовок электронной книги
-        String titleEbook = "Cool";
+        String ebookTitle = "Cool";
         System.out.println("\nЗаголовок электронной книги = " + titleEbook);
 
         // размер
@@ -175,11 +175,11 @@ public class VariableNamesTheme {
         System.out.println("\nСокращенный uniform resource locator = " + shortUrl);
 
         // новый идентификатор клиента
-        int newUser = 1;
-        System.out.println("\nНовый идентификатор клиента = " + newUser);
+        int uid = 1;
+        System.out.println("\nНовый идентификатор клиента = " + uid);
 
         // American standard code for information interchange
-        char isAscii = '%';
-        System.out.println("\nAmerican standard code for information interchange = " + isAscii);
+        char ascii = '%';
+        System.out.println("\nAmerican standard code for information interchange = " + ascii);
     }
 }
