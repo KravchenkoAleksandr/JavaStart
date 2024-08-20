@@ -129,7 +129,7 @@ public class IfElseStatementTheme {
         } else if (markProgramming > 91) {
             scoreProgramming = 5;
         }
-        System.out.println("Оценка по истории: " +scoreHistory);
+        System.out.println("Оценка по истории: " + scoreHistory);
         System.out.println("Оценка по программированию: " + scoreProgramming);
         float averageScore = (scoreHistory + scoreProgramming) / 2;
         System.out.println("Средний балл по предметам: " + averageScore);
