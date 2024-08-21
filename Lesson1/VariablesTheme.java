@@ -5,19 +5,18 @@ public class VariablesTheme {
         System.out.println("Оперативная память: " + ram);
         int numberOfCore = 6;
         System.out.println("Количество ядер: " + numberOfCore);
-
-        /*char 
-
+        byte typeSystem = 64;
+        System.out.println(typeSystem + " разрядная операционная система");
         double ssd = 256.0;
         System.out.println("Память " + ssd);
-        byte
+        char mainDisc = 'C';
+        System.out.println("Основной диск: " + mainDisc);
+        long frequencyCpu = 3000;
+        System.out.println("Тактовая частота процессора " + frequencyCpu + "МГц");
 
-        long 
+        short numberProcessor = 1;
+        System.out.println("Число процессоров: " + numberProcessor);
 
-        short
-*/
-
-    
         System.out.println("\n2. Расчёт стоимости товара со скидкой");
         float pricePen = 105.5f;
         float priceBook = 235.83f;
@@ -59,25 +58,25 @@ public class VariablesTheme {
         int a = 2;
         int b = 5;
         System.out.println("\nС помощью третьей переменной");
-        System.out.println(String.format("\nИсходные значения переменных : a = %d, b = %d",a, b));
+        System.out.println(String.format("Исходные значения переменных : a = %d, b = %d",a, b));
         int swap = a;
         a = b;
         b = swap;
-        System.out.println(String.format("\nНовые значения переменных : a = %d, b = %d, swap = %d",
+        System.out.println(String.format("Новые значения переменных : a = %d, b = %d, swap = %d",
                 a, b, swap));
 
-        System.out.println("\nС помощью арифметических операций");
+        System.out.println("С помощью арифметических операций");
         swap = a + b;
         a = swap - a;
         b = swap - b;
-        System.out.println(String.format("\nНовые значения переменных : a = %d, b = %d, swap = %d",
+        System.out.println(String.format("Новые значения переменных : a = %d, b = %d, swap = %d",
                 a, b, swap));
         
-        System.out.println("\nС помощью побитовой операции ^");
+        System.out.println("С помощью побитовой операции ^");
         a = a ^ b;
         b = b ^ a;
         a = a ^ b;
-        System.out.println(String.format("\nНовые значения переменных : a = %d, b = %d", a, b));
+        System.out.println(String.format("Новые значения переменных : a = %d, b = %d", a, b));
 
         System.out.println("\n6. Вывод символов и их кодов");
         char signDollar = '$';
