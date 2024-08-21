@@ -5,21 +5,27 @@ public class VariablesTheme {
         System.out.println("Оперативная память: " + ram);
         int numberOfCore = 6;
         System.out.println("Количество ядер: " + numberOfCore);
-        // 3 переменных, чтобы задействовать тип char
-        char ssd1 = 's';
-        char ssd2 = 's';
-        char ssd3 = 'd';
+
+        /*char 
+
         double ssd = 256.0;
-        System.out.println("Память " + ssd1 + ssd2 + ssd3 + " = " + ssd);
+        System.out.println("Память " + ssd);
+        byte
+
+        long 
+
+        short
+*/
+
     
         System.out.println("\n2. Расчёт стоимости товара со скидкой");
         float pricePen = 105.5f;
         float priceBook = 235.83f;
-        float priceWithoutDiscount = pricePen + priceBook;
-        float discountPrice = (priceWithoutDiscount / 100) * 11;
-        System.out.println("Стоимость товаров без скидки = " + priceWithoutDiscount);
+        float basePrice = pricePen + priceBook;
+        float discountPrice = (basePrice / 100) * 11;
+        System.out.println("Стоимость товаров без скидки = " + basePrice);
         System.out.println("Сумма скидки = " + discountPrice);
-        System.out.println("Стоимость товаров со скидкой = " + (priceWithoutDiscount - discountPrice));
+        System.out.println("Стоимость товаров со скидкой = " + (basePrice - discountPrice));
 
         System.out.println("\n3. Вывод слова JAVA\n");
         System.out.println("   J     a   v     v  a");
@@ -44,6 +50,10 @@ public class VariablesTheme {
         System.out.println("\n" + maxNumberLong);
         System.out.println(++maxNumberLong);
         System.out.println(--maxNumberLong);
+        char maxNumberChar = 65_535;
+        System.out.println("\n" + maxNumberChar);
+        System.out.println(++maxNumberChar);
+        System.out.println(--maxNumberChar);
 
         System.out.println("\n5. перестановка значений переменных");
         int a = 2;
@@ -71,15 +81,20 @@ public class VariablesTheme {
 
         System.out.println("\n6. Вывод символов и их кодов");
         char signDollar = '$';
-        System.out.println("36  = " + signDollar);
+        int codeSignDollar = signDollar;
         char signAsterisk = '*';
-        System.out.println("42 = " + signAsterisk);
+        int codeSignAsterisk = signAsterisk;
         char signAt = '@';
-        System.out.println("64 = " + signAt);
+        int codeSignAt = signAt;
         char signVerticalBar = '\\';
-        System.out.println("124 = " + signVerticalBar);
+        int codeSignVerticalBar = signVerticalBar;
         char signTilde = '~';
-        System.out.println("126 = " + signTilde);
+        int codeSignTilde = signTilde;
+        System.out.println(codeSignDollar + " = " + signDollar);
+        System.out.println(codeSignAsterisk +" = " + signVerticalBar);
+        System.out.println(codeSignAt +" = " + signAt);
+        System.out.println(codeSignVerticalBar +" = " + signAsterisk);
+        System.out.println(codeSignTilde +" = " + signTilde);
 
         System.out.println("\n7. Вывод в консоль ASCII-арт Дюка");
         char rightParenthesis = ')';
@@ -110,10 +125,10 @@ public class VariablesTheme {
         System.out.println("Произведение разрядов: " + productDigits);
 
         System.out.println("\n9. Перевод секунд в часы, минуты и секунды");
-        int ss = 86399;
-        int hh = (ss / 60) / 60;
-        int mm = (ss / 60) % 60;
-        int seconds1 = mm % 60;
-        System.out.println(hh + ":" + mm + ":" + seconds1);
+        int time = 86399;
+        int hh = (time / 60) / 60;
+        int mm = (time / 60) % 60;
+        int ss = mm % 60;
+        System.out.println(hh + ":" + mm + ":" + ss);
     }
 }
