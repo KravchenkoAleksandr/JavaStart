@@ -13,9 +13,10 @@ public class VariablesTheme {
         System.out.println("Основной диск: " + mainDisc);
         long frequencyCpu = 3000;
         System.out.println("Тактовая частота процессора " + frequencyCpu + "МГц");
-
         short numberProcessor = 1;
         System.out.println("Число процессоров: " + numberProcessor);
+        boolean isOn = true;
+        System.out.println("Компьютер включен?: " + numberProcessor);
 
         System.out.println("\n2. Расчёт стоимости товара со скидкой");
         float pricePen = 105.5f;
@@ -33,67 +34,61 @@ public class VariablesTheme {
         System.out.println(" JJ   a     a   V  a     a");
 
         System.out.println("\n4. Вывод  min и max значений целых числовых типов");
-        byte maxNumberByte = 127;
-        System.out.println(maxNumberByte);
-        System.out.println(++maxNumberByte);
-        System.out.println(--maxNumberByte);
-        short maxNumberShort = 32_767;
-        System.out.println("\n" + maxNumberShort);
-        System.out.println(++maxNumberShort);
-        System.out.println(--maxNumberShort);
-        int maxNumberInt = 2_147_483_647;
-        System.out.println("\n" + maxNumberInt);
-        System.out.println(++maxNumberInt);
-        System.out.println(--maxNumberInt);
-        long maxNumberLong = 9_223_372_036_854_775_807L;
-        System.out.println("\n" + maxNumberLong);
-        System.out.println(++maxNumberLong);
-        System.out.println(--maxNumberLong);
-        char maxNumberChar = 65_535;
-        System.out.println("\n" + maxNumberChar);
-        System.out.println(++maxNumberChar);
-        System.out.println(--maxNumberChar);
+        byte extremesByteValue = 127;
+        System.out.println(extremesByteValue);
+        System.out.println(++extremesByteValue);
+        System.out.println(--extremesByteValue);
+        short extremesShotrValue = 32_767;
+        System.out.println("\n" + extremesShotrValue);
+        System.out.println(extremesShotrValue++);
+        System.out.println(--extremesShotrValue);
+        int extremesIntValue = 2_147_483_647;
+        System.out.println("\n" + extremesIntValue);
+        System.out.println(++extremesIntValue);
+        System.out.println(--extremesIntValue);
+        long extremesLongValue = 9_223_372_036_854_775_807L;
+        System.out.println("\n" + extremesLongValue);
+        System.out.println(++extremesLongValue);
+        System.out.println(--extremesLongValue);
+        char extremesCharValue = 65_535;
+        System.out.println("\n" + (int) extremesCharValue);
+        System.out.println((int) ++extremesCharValue);
+        System.out.println((int) --extremesCharValue);
 
         System.out.println("\n5. перестановка значений переменных");
         int a = 2;
         int b = 5;
         System.out.println("\nС помощью третьей переменной");
-        System.out.println(String.format("Исходные значения переменных : a = %d, b = %d",a, b));
+        System.out.printf("Исходные значения переменных : a = %d, b = %d", a, b);
         int swap = a;
         a = b;
         b = swap;
-        System.out.println(String.format("Новые значения переменных : a = %d, b = %d, swap = %d",
-                a, b, swap));
+        System.out.printf("\nНовые значения переменных : a = %d, b = %d, swap = %d",
+                a, b, swap);
 
-        System.out.println("С помощью арифметических операций");
-        swap = a + b;
-        a = swap - a;
-        b = swap - b;
-        System.out.println(String.format("Новые значения переменных : a = %d, b = %d, swap = %d",
-                a, b, swap));
+        System.out.println("\n\nС помощью арифметических операций");
+        a += b;
+        b = a - b;
+        a -= b;
+        System.out.printf("Новые значения переменных : a = %d, b = %d ", a, b);
         
-        System.out.println("С помощью побитовой операции ^");
+        System.out.println("\n\nС помощью побитовой операции ^");
         a = a ^ b;
         b = b ^ a;
         a = a ^ b;
-        System.out.println(String.format("Новые значения переменных : a = %d, b = %d", a, b));
+        System.out.printf("Новые значения переменных : a = %d, b = %d", a, b);
 
-        System.out.println("\n6. Вывод символов и их кодов");
+        System.out.println("\n\n6. Вывод символов и их кодов");
         char signDollar = '$';
-        int codeSignDollar = signDollar;
         char signAsterisk = '*';
-        int codeSignAsterisk = signAsterisk;
         char signAt = '@';
-        int codeSignAt = signAt;
         char signVerticalBar = '\\';
-        int codeSignVerticalBar = signVerticalBar;
         char signTilde = '~';
-        int codeSignTilde = signTilde;
-        System.out.println(codeSignDollar + " = " + signDollar);
-        System.out.println(codeSignAsterisk +" = " + signVerticalBar);
-        System.out.println(codeSignAt +" = " + signAt);
-        System.out.println(codeSignVerticalBar +" = " + signAsterisk);
-        System.out.println(codeSignTilde +" = " + signTilde);
+        System.out.println((int) signDollar + " = " + signDollar);
+        System.out.println((int) signAsterisk + " = " + signVerticalBar);
+        System.out.println((int) signAt + " = " + signAt);
+        System.out.println((int) signVerticalBar + " = " + signAsterisk);
+        System.out.println((int) signTilde + " = " + signTilde);
 
         System.out.println("\n7. Вывод в консоль ASCII-арт Дюка");
         char rightParenthesis = ')';
