@@ -68,14 +68,15 @@ public class VariablesTheme {
 
         System.out.println("\n\nС помощью арифметических операций");
         a += b;
-        b = a - b;
+        b -= a;
+        b = -b;
         a -= b;
         System.out.printf("Новые значения переменных : a = %d, b = %d ", a, b);
         
         System.out.println("\n\nС помощью побитовой операции ^");
-        a = a ^ b;
-        b = b ^ a;
-        a = a ^ b;
+        a ^= b;
+        b ^= a;
+        a ^= b;
         System.out.printf("Новые значения переменных : a = %d, b = %d", a, b);
 
         System.out.println("\n\n6. Вывод символов и их кодов");
@@ -119,10 +120,10 @@ public class VariablesTheme {
         System.out.println("Произведение разрядов: " + productDigits);
 
         System.out.println("\n9. Перевод секунд в часы, минуты и секунды");
-        int time = 86399;
-        int hh = (time / 60) / 60;
-        int mm = (time / 60) % 60;
-        int ss = mm % 60;
+        int time = 86397;
+        int hh = time / 3600;
+        int mm = (time % 3600) / 60;
+        int ss = time % 60;
         System.out.println(hh + ":" + mm + ":" + ss);
     }
 }
