@@ -1,8 +1,8 @@
 public class IfElseStatementTheme {
     public static void main(String[] args) {
         System.out.println("1. Перевод псевдокода на язык Java");
-        boolean isManSex = true;
-        if (!isManSex) {
+        boolean isMaleSex = true;
+        if (!isMaleSex) {
             System.out.println("Женщина");
         } else {
             System.out.println("Мужчина");
@@ -32,12 +32,12 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("\n2. Поиск большего числа");
-        int i = 8;
-        int j = 4;
-        if (i > j) {
-            System.out.println("Число " + i + " больше числа " + j);
-        } else if (i < j) {
-            System.out.println("Число " + i + " меньше числа " + j);
+        int a = 8;
+        int b = 4;
+        if (a > b) {
+            System.out.println("Число " + a + " больше числа " + b);
+        } else if (a < b) {
+            System.out.println("Число " + a + " меньше числа " + b);
         } else {
             System.out.println("Числа равны");
         }
@@ -60,20 +60,19 @@ public class IfElseStatementTheme {
             }
         }
 
-        System.out.println("\n4. Поиск одинаковых цифр в числах");
-        int a = 165;
-        int b = 465;
-        int hundredsNumberOne = a / 100;
-        int tensNumberOne = (a / 10) % 10;
-        int onesNumberOne = a % 10;
-        int hundredsNumberTwo = b / 100;
-        int tensNumberTwo = (b / 10) % 10;
-        int onesNumberTwo = b % 10;
-        if (hundredsNumberOne != hundredsNumberTwo && tensNumberOne != tensNumberTwo && 
+        int A = 165;
+        int B = 465;
+        int hundredsNumberOne = A / 100;
+        int tensNumberOne = (A / 10) % 10;
+        int onesNumberOne = A % 10;
+        int hundredsNumberTwo = B / 100;
+        int tensNumberTwo = (B / 10) % 10;
+        int onesNumberTwo = B % 10;
+        if (hundredsNumberOne != hundredsNumberTwo && tensNumberOne != tensNumberTwo &&
                 onesNumberOne != onesNumberTwo) {
             System.out.println("Нет равных цифр в разрядах");
         } else {
-            System.out.println("Исходные числа: " + a + " " + b);
+            System.out.println("Исходные числа: " + A + " " + B);
             if (hundredsNumberOne == hundredsNumberTwo) {
                 System.out.println("Одинаковые цифры:" + hundredsNumberOne + "\nНомер разряда: 3");
             }
@@ -86,10 +85,10 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("\n5. Определение символа по его коду");
-        char codeSign = '\u0057';
-        if (Character.isLetter(codeSign) && Character.isUpperCase(codeSign)) {
+        char codeSign = '\u0123';
+        if (Character.isUpperCase(codeSign)) {
             System.out.println(codeSign + " - большая буква");
-        } else if (Character.isLetter(codeSign)) {
+        } else if (Character.isLowerCase(codeSign)) {
             System.out.println(codeSign + " - маленькая буква");
         } else if (Character.isDigit(codeSign)) {
             System.out.println(codeSign + " - цифра");
@@ -101,10 +100,11 @@ public class IfElseStatementTheme {
         double sumDeposit = 321123.59;
         double rate = 5;
         if (sumDeposit > 100_000 && sumDeposit < 300_000) {
-            rate = (sumDeposit / 100) * 7;
+            rate = 7;
         } else if (sumDeposit > 300_000) {
-            rate = (sumDeposit / 100) * 10;
+            rate = 10;
         }
+
         System.out.println("Сумма вклада: " + sumDeposit + "\nСумма начисленного процента: " + rate +
                 "\nИтоговая сумма с процентом: " + (sumDeposit + rate));
 
@@ -129,10 +129,12 @@ public class IfElseStatementTheme {
         }
         System.out.println("Оценка по истории: " + scoreHistory);
         System.out.println("Оценка по программированию: " + scoreProgramming);
-        float averageScore = (scoreHistory + scoreProgramming) / 2;
+        float averageScore = (scoreHistory + scoreProgramming) / 2.0f;
         System.out.println("Средний балл по предметам: " + averageScore);
-        float averagePercent = (markHistory + markProgramming) / 2;
+        float averagePercent = (markHistory + markProgramming) / 2.0f;
         System.out.println("Средний % по предметам: " + averagePercent);
+        System.out.println(averageScore);
+        System.out.println(averagePercent);
 
         System.out.println("\n8. Расчет годовой прибыли");
         double salesMonth = 13025.233;
