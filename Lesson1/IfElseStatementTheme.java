@@ -136,8 +136,6 @@ public class IfElseStatementTheme {
         System.out.println("Средний балл по предметам: " + averageScore);
         float averagePercent = (markHistory + markProgramming) / 2.0f;
         System.out.println("Средний % по предметам: " + averagePercent);
-        System.out.println(averageScore);
-        System.out.println(averagePercent);
 
         System.out.println("\n8. Расчет годовой прибыли");
         double salesMonth = 13025.233;
