@@ -6,12 +6,12 @@ public class CyclesTheme {
         int counterEvenNumber = 0;
         int counterUnevenNumber = 0;
         do {
-                if (startNumber % 2 == 0) {
-                    counterEvenNumber += startNumber;
-                } else {
-                    counterUnevenNumber += startNumber;
-                }
-                startNumber++;
+            if (startNumber % 2 == 0) {
+                counterEvenNumber += startNumber;
+            } else {
+                counterUnevenNumber += startNumber;
+            }
+            startNumber++;
         } while (startNumber <= finishNumber);
         System.out.println("В отрезке [-10, 21] сумма четных чисел = " + counterEvenNumber +
                 ", а нечетных = " + counterUnevenNumber);
@@ -20,7 +20,7 @@ public class CyclesTheme {
         int a = 10;
         int b = 5;
         int c = -1;
-        int minNumber = a < b && a < c ? a : (b < c ? b : c );
+        int minNumber = a < b && a < c ? a : (b < c ? b : c);
         int maxNumber = a > b && a > c ? a : (b > c ? b : c);
         for (int i = maxNumber; i >= minNumber; i--) {
             System.out.print(i + " ");
@@ -112,11 +112,11 @@ public class CyclesTheme {
         while (copyNumber > 0) {
             reverseNumber = reverseNumber * 10 + copyNumber % 10;
             copyNumber /= 10;
-            }
-             if (checkNumber == reverseNumber) {
-                System.out.println("Число " + checkNumber + " палиндром");
-            } else {
-                System.out.println("Число " + checkNumber + "не палиндром");
+        }
+        if (checkNumber == reverseNumber) {
+            System.out.println("Число " + checkNumber + " палиндром");
+        } else {
+            System.out.println("Число " + checkNumber + "не палиндром");
         }
 
         System.out.println("\n9. Проверка, является ли число счастливым");
@@ -144,18 +144,17 @@ public class CyclesTheme {
         System.out.println("\n10. Вывод таблицы умножения Пифагора");
         System.out.println("\tТАБЛИЦА ПИФАГОРА");
         System.out.print("  |");
-        for (int i = 2; i <= 9 ; i++) {
-            System.out.printf("%2d ",i);
+        for (int i = 2; i <= 9; i++) {
+            System.out.printf("%2d ", i);
         }
         System.out.print("\n__|");
         System.out.println("_______________________");
-        for (int i = 2; i <= 9 ; i++) {
+        for (int i = 2; i <= 9; i++) {
             System.out.print(i + " |");
-        for (int j = 2; j <= 9 ; j++) {
+            for (int j = 2; j <= 9; j++) {
                 System.out.printf("%2d ", i * j);
             }
             System.out.println();
         }
-
     }
 }
