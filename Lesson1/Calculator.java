@@ -1,24 +1,24 @@
 public class Calculator {
     public static void main(String [] args) {
-        int digit = 2;
-        int number = 8;
+        int a = 2;
+        int b = 8;
         char sign = '^';
         if (sign == '+') {
-            System.out.println(digit + " " + sign + " " + number + " = " + (digit + number));
+            System.out.println(a + " " + sign + " " + b + " = " + (a + b));
         } else if (sign == '-') {
-            System.out.println(digit + " " + sign + " " + number + " = " + (digit - number));
+            System.out.println(a + " " + sign + " " + b + " = " + (a - b));
         } else if (sign == '*') {
-            System.out.println(digit + " " + sign + " " + number + " = " + (digit * number));
+            System.out.println(a + " " + sign + " " + b + " = " + (a * b));
         } else if (sign == '/') {
-            System.out.println(digit + " " + sign + " " + number + " = " + (digit / number));
+            System.out.println(a + " " + sign + " " + b + " = " + (a / b));
         } else if (sign == '%') {
-            System.out.println(digit + " " + sign + " " + number + " = " + (digit % number));
+            System.out.println(a + " " + sign + " " + b + " = " + (a % b));
         } else if (sign == '^') {
             int result = 1;
-            for (int i = 1; i <= number; i++) {
-                result = result * digit;
+            for (int i = 1; i <= b; i++) {
+                result *= a;
             }
-            System.out.print(digit + " " + sign + " " + number + " = " + result);
+            System.out.print(a + " " + sign + " " + b + " = " + result);
         }
     }
 }
