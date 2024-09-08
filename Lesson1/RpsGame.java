@@ -35,10 +35,8 @@ public class RpsGame {
         String sign2 = rock;
         if (position1 > 66) {
             sign2 = paper;
-        } else {
-        if (position1 > 33) {
+        } else if (position1 > 33) {
             sign2 = scissors;
-        }
         }
         System.out.println("Ход " + name2 + ": ");
         for (int i = 0; i < 5; i++) {
