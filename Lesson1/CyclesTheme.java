@@ -3,67 +3,71 @@ public class CyclesTheme {
         System.out.println("\n1. Подсчет суммы четных и нечетных чисел");
         int startNumber = -10;
         int finishNumber = 21;
-        int counterEvenNumber = 0;
-        int counterUnevenNumber = 0;
+        int sumEvenNumber = 0;
+        int sumUnevenNumber = 0;
         do {
             if (startNumber % 2 == 0) {
-                counterEvenNumber += startNumber;
+                sumEvenNumber += startNumber;
             } else {
-                counterUnevenNumber += startNumber;
+                sumUnevenNumber += startNumber;
             }
             startNumber++;
         } while (startNumber <= finishNumber);
-        System.out.println("В отрезке [-10, 21] сумма четных чисел = " + counterEvenNumber +
-                ", а нечетных = " + counterUnevenNumber);
+        System.out.println("В отрезке [ " + startNumber + ", " + finishNumber + " ] сумма четных чисел = " + sumEvenNumber +
+                ", а нечетных = " + sumUnevenNumber);
 
         System.out.println("\n2. Вывод чисел между min и max в порядке убывания");
         int a = 10;
         int b = 5;
         int c = -1;
-        int minNumber = a < b && a < c ? a : (b < c ? b : c);
-        int maxNumber = a > b && a > c ? a : (b > c ? b : c);
-        for (int i = maxNumber; i >= minNumber; i--) {
+        int min = a < b && a < c ? a : (b < c ? b : c);
+        int max = a > b && a > c ? a : (b > c ? b : c);
+        for (int i = max - 1; i > min; i--) {
             System.out.print(i + " ");
         }
 
         System.out.println("\n\n3. Вывод реверсивного числа и суммы его цифр");
         int number = 1234;
-        int s = 0;
+        int reverse = 0;
         int sum = 0;
         while (number > 0) {
-            s = number % 10;
+            reverse = number % 10;
             number /= 10;
-            sum += s;
-            System.out.print(s);
+            sum += reverse;
+            System.out.print(reverse);
         }
         System.out.println("\n" + sum);
         
         System.out.println("\n4. Вывод чисел в несколько строк");
-        for (int i = 1; i < 30; i++) {
-            if (i % 2 != 0) {
-                System.out.printf("%5d", i, i == 5 ? '\n' : "");
+        int rows = 5;
+        for (int i = 1; i < 24; ) {
+            for (int j = 0; j < rows; j++) {
+                if (i < 24) {
+                    System.out.printf("%5d", i);
+                } else {
+                    System.out.printf("%5d", 0);
+                }
+                i += 2;
             }
+            System.out.println();
         }
     
         System.out.println("\n5. Проверка количества двоек числа на четность/нечетность");
-        number = 3242592;
-        int printNumber = number;
-        int digit;
+        number = 32422225;
+        int numberCopy = number;
         int counter = 0;
         while (number > 0) {
-            digit = number % 10;
-            if ((digit - 2) == 0) {
+            if (number % 10 == 2) {
                 counter++;
             }
             number /= 10;
         }
-        String checkEven;
-        if (counter % 2 == 0) {
-            checkEven = "четное";
-        } else {
+        String checkEven = "четное";
+        if (counter % 2 != 0) {
             checkEven = "нечетное";
         }
-        System.out.printf("В %d %s (%d) количество двоек%n", printNumber, checkEven, counter);
+        System.out.printf("В %d %s (%d) количество двоек%n", numberCopy, checkEven, counter);
+
 
         System.out.println("\n6. Вывод геометрических фигур");
         for (int i = 0; i < 5; i++) {
@@ -72,6 +76,7 @@ public class CyclesTheme {
             }
             System.out.println();
         }
+
         System.out.println();
         a = 5;
         b = 5;
@@ -83,6 +88,7 @@ public class CyclesTheme {
             a--;
             b += a;
             System.out.println();
+
         }
         System.out.println();
         a = 0;
@@ -97,10 +103,10 @@ public class CyclesTheme {
         } while (a <= 3);
 
         System.out.println("\n7. Вывод ASCII-символов");
-        System.out.printf("%s%11s%16s", "DECIMAL", "CHARACTER", "DESCRIPTION");
+        System.out.printf("%s%11s%14s", "DECIMAL", "CHARACTER", "DESCRIPTION");
         for (int i = 33; i <= 122; i++) {
             if (i <= '0' && i % 2 != 0 || i >= 'a' && i % 2 == 0) {
-                System.out.printf("%n  %-11d%-10c%s", i, i, Character.getName(i));
+                System.out.printf("%n  %-11d%-12c%s", i, i, Character.getName(i));
             }
         }
 
@@ -121,25 +127,25 @@ public class CyclesTheme {
 
         System.out.println("\n9. Проверка, является ли число счастливым");
         number = 123321;
-        int numberCopyOne = number / 1000;
-        int numberCopyTwo = number % 1000;
+        int threeRightDigit = number % 1000;
+        int threeLeftDigit = number / 1000;
+        int threeLeftDigitCopy = number / 1000;
+        int threeRightDigitCopy = number % 1000;
         int sumDigitOne = 0;
         int sumDigitTwo = 0;
-        while (numberCopyOne > 0) {
-            sumDigitOne += numberCopyOne % 10;
-            numberCopyOne /= 10;
-            sumDigitTwo += numberCopyTwo % 10;
-            numberCopyTwo /= 10;
+        while (threeLeftDigitCopy > 0) {
+            sumDigitOne += threeLeftDigitCopy % 10;
+            threeLeftDigitCopy /= 10;
+            sumDigitTwo += threeRightDigitCopy % 10;
+            threeRightDigitCopy /= 10;
         }
         if (sumDigitOne == sumDigitTwo) {
             System.out.println("Число " + number + " счастливое");
-            System.out.println("Сумма цифр " + numberCopyOne + " = " + sumDigitOne);
-            System.out.println("Сумма цифр " + numberCopyTwo + " = " + sumDigitTwo);
         } else {
             System.out.println("Число " + number + " несчастливое");
-            System.out.println("Сумма цифр " + numberCopyOne + " = " + sumDigitOne);
-            System.out.println("Сумма цифр " + numberCopyTwo + " = " + sumDigitTwo);
         }
+        System.out.println("Сумма цифр " + threeLeftDigit + " = " + sumDigitOne);
+        System.out.println("Сумма цифр " + threeRightDigit + " = " + sumDigitTwo);
 
         System.out.println("\n10. Вывод таблицы умножения Пифагора");
         System.out.println("\tТАБЛИЦА ПИФАГОРА");
