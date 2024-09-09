@@ -3,22 +3,23 @@ public class Calculator {
         int a = 2;
         int b = 8;
         char sign = '^';
+        int result = 0;
         if (sign == '+') {
-            System.out.println(a + " " + sign + " " + b + " = " + (a + b));
+            result = a + b;
         } else if (sign == '-') {
-            System.out.println(a + " " + sign + " " + b + " = " + (a - b));
+            result = a - b;
         } else if (sign == '*') {
-            System.out.println(a + " " + sign + " " + b + " = " + (a * b));
+            result = a * b;
         } else if (sign == '/') {
-            System.out.println(a + " " + sign + " " + b + " = " + (a / b));
+            result = a / b;
         } else if (sign == '%') {
-            System.out.println(a + " " + sign + " " + b + " = " + (a % b));
+            result = a % b;
         } else if (sign == '^') {
-            int result = 1;
+            result = 1;
             for (int i = 1; i <= b; i++) {
                 result *= a;
             }
-            System.out.print(a + " " + sign + " " + b + " = " + result);
         }
+        System.out.print(a + " " + sign + " " + b + " = " + result);
     }
 }
