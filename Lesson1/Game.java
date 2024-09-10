@@ -1,19 +1,17 @@
 public class Game {
     public static void main(String[] args) {
         int secretNumber = 14;
-        int inputNumberPlayer = 4;
+        int playerNumber = 4;
 
         do {
-            if (secretNumber > inputNumberPlayer) {
-                System.out.println(inputNumberPlayer + " меньше того, что загадал компьютер");
-                inputNumberPlayer++;
-            } else if (secretNumber < inputNumberPlayer) {
-                System.out.println(inputNumberPlayer + " больше того, что загадал компьютер");
-                inputNumberPlayer--;
+            if (secretNumber > playerNumber) {
+                System.out.println(playerNumber + " меньше того, что загадал компьютер");
+                playerNumber++;
+            } else if (secretNumber < playerNumber) {
+                System.out.println(playerNumber + " больше того, что загадал компьютер");
+                playerNumber--;
             }
-            if (secretNumber == inputNumberPlayer) {
-                System.out.println("Вы угадали число " + secretNumber + " и победили!");
-            }
-        } while (secretNumber != inputNumberPlayer);
+        } while (secretNumber != playerNumber);
+        System.out.println("Вы угадали число " + secretNumber + " и победили!");
     }
 }
