@@ -22,8 +22,9 @@ public class CalculatorTest {
             System.out.println("Введите второе число: ");
             do {
                 b = scanner.nextInt();
-                if (sign == '/' || sign == '%' && b == 0) {
+                if (sign == '/' && b == 0 || sign == '%' && b == 0) {
                     System.out.println("Ошибка: деление на ноль запрещено");
+                    System.out.println("Введите цифру или число не равное 0");
                 }
             } while (b == 0);
             Calculator calculator = new Calculator(a, b, sign);
