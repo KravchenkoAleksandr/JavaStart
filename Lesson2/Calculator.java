@@ -1,46 +1,34 @@
 public class Calculator {
     private char sign;
-    private double a;
-    private double b;
+    private int a;
+    private int b;
 
-    public Calculator(double a, double b, char sign) {
+    public Calculator(int a, int b, char sign) {
         this.a = a;
         this.b = b;
         this.sign = sign;
     }
 
-    public char getSign() {
-        return sign;
-    }
-
-    public double getA() {
-        return a;
-    }
-
-    public double getB() {
-        return b;
-    }
-
-    public double calculates(Calculator calculator) {
+    public double calculates() {
         double result = 1;
         switch (sign) {
             case '+':
-                result = calculator.getA() + calculator.getB();
+                result = a + b;
                 break;
             case '-':
-                result = calculator.getA() - calculator.getB();
+                result = a - b;
                 break;
             case '*':
-                result = calculator.getA() * calculator.getB();
+                result = a * b;
                 break;
             case '/':
-                result = calculator.getA() / calculator.getB();
+                result = a / b;
                 break;
             case '%':
-                result = calculator.getA() % calculator.getB();
+                result = a % b;
                 break;
             case '^':
-                result = pow(a, b);
+                result = pow();
                 break;
             default:
                 break;        
@@ -48,12 +36,12 @@ public class Calculator {
         return result;
     }
 
-    static double pow(double a, double b) {
-        double m = b < 0 ? -b : b;
-        double res = 1.0;
-        while (m-- > 0) {
-            res *= a;
+    private double pow() {
+        double result = 1;
+        int m = Math.abs(b);
+        for (int i = 1; i <= m; i++) {
+            result *= a;
         }
-        return b < 0 ? 1.0 / res : res;
+        return b >= 0 ? result : 1 / result ;
     }
 }

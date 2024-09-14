@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        String continuation = "";
         char sign = ' ';
-        double a;
-        double b;
-        do {
-            Scanner scanner = new Scanner(System.in);
+        int a;
+        int b;
+        Scanner scanner = new Scanner(System.in);
+        String continuation = "yes";
+        while (continuation.equals("yes")) {
             System.out.println("Введите первое число: ");
             a = scanner.nextInt();
             System.out.println("Введите знак операции (+, -, *, /, ^, %): ");
@@ -28,10 +28,12 @@ public class CalculatorTest {
                 }
             } while (b == 0);
             Calculator calculator = new Calculator(a, b, sign);
-            System.out.print(a + " " + sign + " " + b + " = " + calculator.calculates(calculator));
+            System.out.print(a + " " + sign + " " + b + " = " + calculator.calculates());
+            do {
             System.out.println("\nХотите продолжить вычисления? [yes/no]:");
             scanner.nextLine();
             continuation = scanner.nextLine();
-        } while (!continuation.equals("no"));
+            } while (!continuation.equals("yes") && !continuation.equals("no")); 
+        }
     }
 }
