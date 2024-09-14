@@ -11,22 +11,6 @@ public class GuessNumberTest {
         Player player2 = new Player(namePlayer2);
         GuessNumber guessNumber = new GuessNumber(player1, player2);
 
-        String answer = "yes";
-        while (answer.equals("yes")) {
-            boolean isWin;
-            guessNumber.thinkingSecretNumber();
-            do {
-                guessNumber.inputNumberPlayer(player1);
-                isWin = guessNumber.compareNumberPlayerWithSecretNumber(player1);
-                if (!isWin) {
-                    guessNumber.inputNumberPlayer(player2);
-                    isWin = guessNumber.compareNumberPlayerWithSecretNumber(player2);
-                }
-            } while (!isWin);
-            do {
-                System.out.println("Хотите продолжить игру? [yes/no]:");
-                answer = scanner.nextLine();
-            } while (!answer.equals("yes") && !answer.equals("no"));
-        }
+        guessNumber.gameplay();
     }
 }
