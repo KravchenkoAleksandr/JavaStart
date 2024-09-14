@@ -10,7 +10,8 @@ public class Jaeger {
     public Jaeger() {
     }
 
-    public Jaeger(String name, int launched, String status, int height, String weapons, int amountAmmunition) {
+    public Jaeger(String name, int launched, String status,
+            int height, String weapons, int amountAmmunition) {
         this.name = name;
         this.launched = launched;
         this.status = status;
