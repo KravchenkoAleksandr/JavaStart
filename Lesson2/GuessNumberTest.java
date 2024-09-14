@@ -14,12 +14,12 @@ public class GuessNumberTest {
         String answer = "yes";
         while (answer.equals("yes")) {
             boolean isWin;
-            int secretNumber = guessNumber.thinkingSecretNumber();
+            guessNumber.thinkingSecretNumber();
             do {
-                int numberPlayer1 = guessNumber.inputNumberPlayer(player1);
+                guessNumber.inputNumberPlayer(player1);
                 isWin = guessNumber.compareNumberPlayerWithSecretNumber(player1);
                 if (!isWin) {
-                    int numberPlayer2 = guessNumber.inputNumberPlayer(player2);
+                    guessNumber.inputNumberPlayer(player2);
                     isWin = guessNumber.compareNumberPlayerWithSecretNumber(player2);
                 }
             } while (!isWin);
