@@ -15,16 +15,16 @@ public class GuessNumber {
         this.player2 = player2;
     }
 
-    public int thinkingSecretNumber() {
+    private int thinkingSecretNumber() {
         return secretNumber = random.nextInt(1, 10);
     }
 
-    public int inputNumberPlayer(Player player) {
+    private int inputNumberPlayer(Player player) {
         System.out.println(player.getName() + " введите число");
         return inputNumber = scanner.nextInt();
     }
 
-    public boolean compareNumberPlayerWithSecretNumber(Player player) {
+    private boolean compareNumberPlayerWithSecretNumber(Player player) {
         if (inputNumber == secretNumber) {
             System.out.println(player.getName() + " победил!");
             return true;
@@ -32,10 +32,9 @@ public class GuessNumber {
         return false;
     }
 
-    public void gameplay() {
-        String answer = "yes";
-        while (answer.equals("yes")) {
-            boolean isWin;
+    public void startGame() {
+        boolean isWin = false;
+        while (!isWin) {
             thinkingSecretNumber();
             do {
                 inputNumberPlayer(player1);
@@ -45,10 +44,6 @@ public class GuessNumber {
                     isWin = compareNumberPlayerWithSecretNumber(player2);
                 }
             } while (!isWin);
-            do {
-                System.out.println("Хотите продолжить игру? [yes/no]:");
-                answer = scanner.next();
-            } while (!answer.equals("yes") && !answer.equals("no"));
         }
     }
 }
