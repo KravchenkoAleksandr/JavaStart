@@ -5,27 +5,24 @@ public class CalculatorTest {
         Scanner scanner = new Scanner(System.in);
         String continuation = "yes";
         while (continuation.equals("yes")) {
-            int a;
-            int b;
-            char sign = ' ';
             System.out.println("Введите первое число: ");
-            a = scanner.nextInt();
+            int a = scanner.nextInt();
             System.out.println("Введите знак операции (+, -, *, /, ^, %): ");
-            boolean choice = true;;
+            char sign = ' ';
             do {
                 sign = scanner.next().charAt(0);
                 if (sign == '+' || sign == '-' || sign == '*' || 
                         sign == '/' || sign == '^' || sign == '%') {
                     break;
-                } else {
-                    System.out.println("Ошибка: операция '" + sign + "' не поддерживается");
-                    System.out.println("Доступны следующие операции: +, -, *, /, ^, %");
                 }
+                System.out.println("Ошибка: операция '" + sign + "' не поддерживается");
+                System.out.println("Доступны следующие операции: +, -, *, /, ^, %");
             } while (true);
+            int b;
             do {
                 System.out.println("Введите второе число: ");
                 b = scanner.nextInt();
-                if (sign == '/' && b == 0 || sign == '%' && b == 0) {
+                if (sign == '/' || sign == '%' && b == 0) {
                     System.out.println("Ошибка: деление на ноль запрещено");
                     System.out.println("Введите цифру или число не равное 0");
                 }

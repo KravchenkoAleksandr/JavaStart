@@ -18,7 +18,7 @@ public class Calculator {
             case '*':
                 return a * b;
             case '/':
-                return a / b;
+                return (double) a / b;
             case '%':
                 return a % b;
             case '^':
