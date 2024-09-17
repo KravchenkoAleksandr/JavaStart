@@ -7,7 +7,7 @@ public class GuessNumber {
     Random random = new Random();
     private Player player1;
     private Player player2;
-    private int inputNumber;
+    private int inputNumber;;
     private int secretNumber;
 
     public GuessNumber(Player player1, Player player2) {
@@ -15,8 +15,25 @@ public class GuessNumber {
         this.player2 = player2;
     }
 
-    private int thinkingSecretNumber() {
-        return secretNumber = random.nextInt(1, 10);
+    public void start() {
+        boolean isWin = false;
+        while (!isWin) {
+            thinkSecretNumber();
+            do {
+                inputNumberPlayer(player1);
+                printHint();
+                isWin = isGuessed(player1);
+                if (!isWin) {
+                    inputNumberPlayer(player2);
+                    printHint();
+                    isWin = isGuessed(player2);
+                }
+            } while (!isWin);
+        }
+    }
+
+    private int thinkSecretNumber() {
+        return secretNumber = random.nextInt(1, 11);
     }
 
     private int inputNumberPlayer(Player player) {
@@ -24,26 +41,19 @@ public class GuessNumber {
         return inputNumber = scanner.nextInt();
     }
 
-    private boolean compareNumberPlayerWithSecretNumber(Player player) {
+    private void printHint() {
+        if (inputNumber > secretNumber) {
+            System.out.println(inputNumber + " больше того, что загадал компьютер");
+        } else if (inputNumber < secretNumber) {
+            System.out.println(inputNumber + " меньше того, что загадал компьютер");
+        }
+    }
+
+    private boolean isGuessed(Player player) {
         if (inputNumber == secretNumber) {
-            System.out.println(player.getName() + " победил!");
+            System.out.println(player.getName() + " отгадал число " + secretNumber + " победил!");
             return true;
         }
         return false;
-    }
-
-    public void startGame() {
-        boolean isWin = false;
-        while (!isWin) {
-            thinkingSecretNumber();
-            do {
-                inputNumberPlayer(player1);
-                isWin = compareNumberPlayerWithSecretNumber(player1);
-                if (!isWin) {
-                    inputNumberPlayer(player2);
-                    isWin = compareNumberPlayerWithSecretNumber(player2);
-                }
-            } while (!isWin);
-        }
     }
 }
