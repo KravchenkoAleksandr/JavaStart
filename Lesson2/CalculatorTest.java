@@ -2,25 +2,28 @@ import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        char sign = ' ';
-        int a;
-        int b;
         Scanner scanner = new Scanner(System.in);
         String continuation = "yes";
         while (continuation.equals("yes")) {
+            int a;
+            int b;
+            char sign = ' ';
             System.out.println("Введите первое число: ");
             a = scanner.nextInt();
             System.out.println("Введите знак операции (+, -, *, /, ^, %): ");
+            boolean choice = true;;
             do {
                 sign = scanner.next().charAt(0);
-                if (sign != '+' && sign != '-' && sign != '*' && sign != '/' && sign != '^' &&
-                        sign != '%') {
+                if (sign == '+' || sign == '-' || sign == '*' || 
+                        sign == '/' || sign == '^' || sign == '%') {
+                    break;
+                } else {
                     System.out.println("Ошибка: операция '" + sign + "' не поддерживается");
                     System.out.println("Доступны следующие операции: +, -, *, /, ^, %");
                 }
-            } while (sign != '+' && sign != '-' && sign != '*' && sign != '/' && sign != '^' && sign != '%');
-            System.out.println("Введите второе число: ");
+            } while (true);
             do {
+                System.out.println("Введите второе число: ");
                 b = scanner.nextInt();
                 if (sign == '/' && b == 0 || sign == '%' && b == 0) {
                     System.out.println("Ошибка: деление на ноль запрещено");
@@ -30,9 +33,8 @@ public class CalculatorTest {
             Calculator calculator = new Calculator(a, b, sign);
             System.out.print(a + " " + sign + " " + b + " = " + calculator.calculates());
             do {
-            System.out.println("\nХотите продолжить вычисления? [yes/no]:");
-            scanner.nextLine();
-            continuation = scanner.nextLine();
+                System.out.println("\nХотите продолжить вычисления? [yes/no]:");
+                continuation = scanner.next();
             } while (!continuation.equals("yes") && !continuation.equals("no")); 
         }
     }

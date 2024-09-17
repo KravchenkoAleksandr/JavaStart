@@ -10,38 +10,30 @@ public class Calculator {
     }
 
     public double calculates() {
-        double result = 1;
         switch (sign) {
             case '+':
-                result = a + b;
-                break;
+                return a + b;
             case '-':
-                result = a - b;
-                break;
+                return a - b;
             case '*':
-                result = a * b;
-                break;
+                return a * b;
             case '/':
-                result = a / b;
-                break;
+                return a / b;
             case '%':
-                result = a % b;
-                break;
+                return a % b;
             case '^':
-                result = pow();
-                break;
+                return pow();
             default:
-                break;        
+                break;
         }
-        return result;
+        return 0;
     }
 
     private double pow() {
         double result = 1;
-        int m = Math.abs(b);
-        for (int i = 1; i <= m; i++) {
+        for (int i = 1; i <= Math.abs(b); i++) {
             result *= a;
         }
-        return b >= 0 ? result : 1 / result ;
+        return b >= 0 ? result : 1 / result;
     }
 }
