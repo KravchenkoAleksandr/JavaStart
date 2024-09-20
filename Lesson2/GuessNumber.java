@@ -15,22 +15,21 @@ public class GuessNumber {
     }
 
     public void start() {
-        boolean isWin = false;
-        while (!isWin) {
-            thinkSecretNumber();
-            do {
-                inputNumberPlayer(player1);
-                isWin = isGuessed(player1);
-                if (!isWin) {
-                    inputNumberPlayer(player2);
-                    isWin = isGuessed(player2);
-                }
-            } while (!isWin);
+        thinkSecretNumber();
+        while (true) {
+            inputNumberPlayer(player1);
+            if (isGuessed(player1)) {
+                break;
+            }
+            inputNumberPlayer(player2);
+            if (isGuessed(player2)) {
+                break;
+            }
         }
     }
 
-    private int thinkSecretNumber() {
-        return secretNumber = random.nextInt(1, 11);
+    private void thinkSecretNumber() {
+        secretNumber = random.nextInt(0, 11);
     }
 
     private void inputNumberPlayer(Player player) {
@@ -42,13 +41,12 @@ public class GuessNumber {
         if (inputNumber == secretNumber) {
             System.out.println(player.getName() + " отгадал число " + secretNumber + " победил!");
             return true;
-        } else if (inputNumber > secretNumber) {
-            System.out.println(inputNumber + " больше того, что загадал компьютер");
-            return false;
-        } else if (inputNumber < secretNumber) {
-            System.out.println(inputNumber + " меньше того, что загадал компьютер");
-            return false;
         }
+        System.out.print(inputNumber);
+        System.out.println(inputNumber > secretNumber ? 
+                " больше того, что загадал компьютер" :
+                " меньше того, что загадал компьютер");
         return false;
     }
 }
+
