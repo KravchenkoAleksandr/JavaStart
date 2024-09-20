@@ -50,7 +50,7 @@ public class NotBooleanMethods {
                 "() -> записать содержимое в файл по указанному пути на флешку");
     }
 
-    public void convertToАahrenheit() {
+    public void convertToFahrenheit() {
         System.out.println(NameMethod.getNameMethod() + 
                 "() -> преобразовать температуру из Цельсия в Фаренгейт");
     }
