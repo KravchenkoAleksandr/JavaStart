@@ -16,16 +16,14 @@ public class GuessNumber {
 
     public void start() {
         thinkSecretNumber();
-        while (true) {
+        do {
             inputNumberPlayer(player1);
             if (isGuessed(player1)) {
                 break;
             }
             inputNumberPlayer(player2);
-            if (isGuessed(player2)) {
-                break;
-            }
-        }
+            
+        } while (!isGuessed(player2));
     }
 
     private void thinkSecretNumber() {
@@ -43,9 +41,8 @@ public class GuessNumber {
             return true;
         }
         System.out.print(inputNumber);
-        System.out.println(inputNumber > secretNumber ? 
-                " больше того, что загадал компьютер" :
-                " меньше того, что загадал компьютер");
+        System.out.print(inputNumber > secretNumber ? " больше" : " меньше");
+        System.out.println(" того, что загадал компьютер");
         return false;
     }
 }
