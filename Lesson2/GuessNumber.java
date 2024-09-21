@@ -18,11 +18,8 @@ public class GuessNumber {
         thinkSecretNumber();
         do {
             inputNumberPlayer(player1);
-            if (isGuessed(player1)) {
-                break;
-            }
+            if (isGuessed(player1)) break;
             inputNumberPlayer(player2);
-            
         } while (!isGuessed(player2));
     }
 
