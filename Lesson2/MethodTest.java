@@ -1,39 +1,40 @@
 public class MethodTest {
     
     public static void main(String[] args) {
-        callNotBooleanMethods();
+        doNotBooleanMethods();
         System.out.println();
-        callBooleanMethods();
+        doBooleanMethods();
     }
 
-    public static void callNotBooleanMethods() {
+    private static void doNotBooleanMethods() {
         NotBooleanMethods nbm = new NotBooleanMethods();
         nbm.findLongestWord();
         nbm.selectMenuItem();
-        nbm.calculateAverageRatings();
+        nbm.avgGrades();
         nbm.countUniqueWords();
         nbm.printsMessageError();
-        nbm.synchronizуData();
+        nbm.sync();
         nbm.recoverData();
-        nbm.stopDownload();
+        nbm.pauseDownload();
         nbm.resetSettings();
         nbm.writeToFile();
         nbm.enterMathExpression();
         nbm.determineWinner();
-        nbm.findBookNameAutor();
+        nbm.findBookByAuthor();
+        nbm.toFahrenheit();
     }
 
-    public static void callBooleanMethods() {
+    private static void doBooleanMethods() {
         BooleanMethods bm = new BooleanMethods();
-        bm.isContinues();
-        bm.isDeleted();
-        bm.hasUniqueDigit();
-        bm.isLetter();
-        bm.hasEqualNumbers();
-        bm.hasAttempts();
-        bm.isVacant();
-        bm.isEven();
-        bm.isValidPath();
-        bm.hasFile();
+        System.out.println(bm.shouldContinue());
+        System.out.println(bm.isDeleted());
+        System.out.println(bm.hasUniqueDigit());
+        System.out.println(bm.isLetter());
+        System.out.println(bm.hasEqualNumbers());
+        System.out.println(bm.hasAttempts());
+        System.out.println(bm.isBlank());
+        System.out.println(bm.isEven());
+        System.out.println(bm.isValidPath());
+        System.out.println(bm.hasFile());
     }
 }
