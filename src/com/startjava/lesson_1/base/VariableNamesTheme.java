@@ -1,3 +1,5 @@
+package com.startjava.lesson_1.base;
+
 public class VariableNamesTheme {
     public static void main(String[] args) {
         System.out.println("1. Разные переменные");
@@ -91,7 +93,7 @@ public class VariableNamesTheme {
         System.out.println("\nПолное имя работника месяца = " + fullNameBestEmloyeeMonth);
 
         // заголовок электронной книги
-        String ebookTitle = "Cool";
+        String titleEbook = "Cool";
         System.out.println("\nЗаголовок электронной книги = " + titleEbook);
 
         // размер

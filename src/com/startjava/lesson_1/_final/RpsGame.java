@@ -1,4 +1,4 @@
-package ru.topjava.lesson1;
+package com.startjava.lesson_1._final;
 
 import java.util.Random;
 

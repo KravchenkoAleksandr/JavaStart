@@ -1,3 +1,5 @@
+package com.startjava.lesson_2_3.robot;
+
 public class Jaeger {
 
     private String name;
@@ -7,8 +9,7 @@ public class Jaeger {
     private String weapons;
     private int amountAmmunition;
 
-    public Jaeger() {
-    }
+    public Jaeger() {}
 
     public Jaeger(String name, int launched, String status,
             int height, String weapons, int amountAmmunition) {

@@ -1,3 +1,5 @@
+package com.startjava.lesson_1.base;
+
 public class VariablesTheme {
     public static void main(String[] args) {
         System.out.println("1. Вывод характеристик компьютера");
@@ -40,7 +42,7 @@ public class VariablesTheme {
         System.out.println(--extremesByteValue);
         short extremesShotrValue = 32_767;
         System.out.println("\n" + extremesShotrValue);
-        System.out.println(extremesShotrValue++);
+        System.out.println(++extremesShotrValue);
         System.out.println(--extremesShotrValue);
         int extremesIntValue = 2_147_483_647;
         System.out.println("\n" + extremesIntValue);
@@ -63,13 +65,12 @@ public class VariablesTheme {
         int swap = a;
         a = b;
         b = swap;
-        System.out.printf("\nНовые значения переменных : a = %d, b = %d, swap = %d",
-                a, b, swap);
+        System.out.printf("\nНовые значения переменных : a = %d, b = %d,",
+                a, b);
 
         System.out.println("\n\nС помощью арифметических операций");
         a += b;
-        b -= a;
-        b = -b;
+        b = a - b;
         a -= b;
         System.out.printf("Новые значения переменных : a = %d, b = %d ", a, b);
         
