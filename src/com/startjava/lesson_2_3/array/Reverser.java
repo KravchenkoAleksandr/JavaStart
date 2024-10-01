@@ -2,7 +2,7 @@ package com.startjava.lesson_2_3.array;
 
 import java.util.Arrays;
 
-public class Reverser{
+public class Reverser {
     public static void main(String[] args) {
         int[] zero = new int[0];
         printReverse(zero);
@@ -30,5 +30,4 @@ public class Reverser{
             array[len] = temp;
         }
     }
-
 }
