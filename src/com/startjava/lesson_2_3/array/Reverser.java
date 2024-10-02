@@ -10,11 +10,15 @@ public class Reverser {
         printReverse(numbers);
         int[] numbers2 = {13, 8, 5, 3, 2, 1, 1};
         printReverse(numbers2);
-        int[] text = null;
-        printReverse(text);
+        int[] digits = null;
+        printReverse(digits);
     }
 
     public static void printReverse(int[] array) {
+        if (array == null || array.length == 0) {
+            System.out.println("Пустой массив или массив со значение null");
+            return;
+        }
         System.out.printf("%15s", "До реверса: ");
         System.out.println(Arrays.toString(array));
         reverseArray(array);
