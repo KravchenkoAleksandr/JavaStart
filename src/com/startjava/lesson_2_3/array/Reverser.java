@@ -5,33 +5,26 @@ import java.util.Arrays;
 public class Reverser {
     public static void main(String[] args) {
         int[] empty = new int[0];
-        printReverse("До реверса: ", empty);
+        print("До реверса: ", empty);
         reverseArray(empty);
-        printReverse("После реверса: ", empty);
+        print("После реверса: ", empty);
         int[] numbers = {6, 8, 9, 1};
-        printReverse("До реверса: ", numbers);
+        print("До реверса: ", numbers);
         reverseArray(numbers);
-        printReverse("После реверса: ", numbers);
+        print("После реверса: ", numbers);
         int[] numbers2 = {13, 8, 5, 3, 2, 1, 1};
-        printReverse("До реверса: ", numbers2);
+        print("До реверса: ", numbers2);
         reverseArray(numbers2);
-        printReverse("После реверса: ", numbers2);
+        print("После реверса: ", numbers2);
         int[] nullable = null;
-        printReverse("До реверса: ", nullable);
+        print("До реверса: ", nullable);
         reverseArray(nullable);
-        printReverse("После реверса: ", nullable);
-    }
-
-    public static void printReverse(String s, int[] array) {
-        if (array == null || array.length == 0) {
-            return;
-        }
-        System.out.printf("%15s", s);
-        System.out.println(Arrays.toString(array));
+        print("После реверса: ", nullable);
     }
 
     private static void reverseArray(int[] array) {
         if (array == null || array.length == 0) {
+            System.out.println("Ошибка: пустой массив или массив null");
             return;
         }
         int len = array.length;
@@ -40,5 +33,13 @@ public class Reverser {
             array[i] = array[len];
             array[len] = temp;
         }
+    }
+
+    private static void print(String msg, int[] array) {
+        if (array == null || array.length == 0) {
+            return;
+        }
+        System.out.printf("%15s", msg);
+        System.out.println(Arrays.toString(array));
     }
 }

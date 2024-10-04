@@ -9,29 +9,25 @@ public class Factorial {
         factorial(-22, -0);
     }
 
-    public static void factorial(int... args) {
+    private static void factorial(int... args) {
         if (args == null || args.length == 0) {
             System.out.println("Пустой массив или массив со значение null\n");
             return;
         }
-        printFactorial(doArrayFactorial(args), args);
+        long[] factorialsArray = doFactorial(args);
+        printFactorial(factorialsArray, args);
     }
 
-    public static long[] doArrayFactorial(int[] array) {
+    private static long[] doFactorial(int[] array) {
         long[] factorialsArray = new long[array.length];
         for (int i = 0; i < factorialsArray.length; i++) {
-             factorialsArray[i] = calcFactorial(array[i]);
-
+            long result = 1;
+            for (int j = 1; j <= array[i] ; j++) {
+                result *= j;
+            }
+            factorialsArray[i] = result;
         }
         return factorialsArray;
-    }
-
-    private static long calcFactorial(int digit) {
-        long result = 1;
-        for (int i = 1; i <= digit; i++) {
-            result *= i;
-        }
-        return result;
     }
 
     private static void printFactorial(long[] factorials, int[] startArray) {
