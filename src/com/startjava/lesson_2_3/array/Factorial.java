@@ -3,41 +3,39 @@ package com.startjava.lesson_2_3.array;
 public class Factorial {
     public static void main(String[] args) {
         int[] empty = {};
-        long[] emptyFactorial = doFactorial(empty);
-        printFactorial(emptyFactorial, empty);
+        long[] result = calcFactorial(empty);
+        printResults(result, empty);
         int[] nulable = null;
-        long[] nulableFactorial = doFactorial(nulable);
-        printFactorial(nulableFactorial, nulable);
+        result = calcFactorial(nulable);
+        printResults(result, nulable);
         int[] fourNumbers = {0, 8, 0, 9};
-        long[] factorialFourNum = doFactorial(fourNumbers);
-        printFactorial(factorialFourNum, fourNumbers);
+        result = calcFactorial(fourNumbers);
+        printResults(result, fourNumbers);
         int[] randomFourNum = {-3, 1, 7, 13};
-        long[] factorialRandomFourNum = doFactorial(randomFourNum);
-        printFactorial(factorialRandomFourNum, randomFourNum);
+        result = calcFactorial(randomFourNum);
+        printResults(result, randomFourNum);
         int[] negativeNum = {-22, -0};
-        long[] negativeFactorial = doFactorial(negativeNum);
-        printFactorial(negativeFactorial, negativeNum);
+        result = calcFactorial(negativeNum);
+        printResults(result, negativeNum);
     }
 
 
-    private static long[] doFactorial(int[] array) {
-        long[] factorialsArray;
+    private static long[] calcFactorial(int... array) {
         if (array == null) {
-            factorialsArray = new long[0];
-            return factorialsArray;
+            return new long[0];
         }
-        factorialsArray = new long[array.length];
-        for (int i = 0; i < factorialsArray.length; i++) {
+        long[] factorialResults = new long[array.length];
+        for (int i = 0; i < factorialResults.length; i++) {
             long result = 1;
-            for (int j = 1; j <= array[i] ; j++) {
+            for (int j = 1; j <= array[i]; j++) {
                 result *= j;
             }
-            factorialsArray[i] = result;
+            factorialResults[i] = result;
         }
-        return factorialsArray;
+        return factorialResults;
     }
 
-    private static void printFactorial(long[] factorials, int[] startArray) {
+    private static void printResults(long[] factorials, int[] startArray) {
         if (startArray == null || startArray.length == 0) {
             System.out.println("Пустой массив или массив со значение null\n");
             return;
