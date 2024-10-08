@@ -19,7 +19,6 @@ public class Factorial {
         printResults(result, negativeNum);
     }
 
-
     private static long[] calcFactorial(int... array) {
         if (array == null) {
             return new long[0];
