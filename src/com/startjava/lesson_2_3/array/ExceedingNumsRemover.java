@@ -3,42 +3,56 @@ package com.startjava.lesson_2_3.array;
 import java.util.Random;
 
 public class ExceedingNumsRemover {
+
     static int counter;
 
     public static void main(String[] args) {
         int index = -1;
-        float[] randomArrayOne = changeElementsMoreIndex(index);
-        print(randomArrayOne,index);
+        float[] result = createArray(index);
+        print(index, result);
+        result = removeElementsMoreIndex(index, result);
+        print(index, result);
+        printChanges(result, index);
+
         index = 15;
-        float[] randomArrayTwo = changeElementsMoreIndex(index);
-        print(randomArrayTwo,index);
+        result = createArray(index);
+        print(index, result);
+        result = removeElementsMoreIndex(index, result);
+        print(index, result);
+        printChanges(result, index);
 
         index = 0;
-        float[] randomArrayTree = changeElementsMoreIndex(index);
-        print(randomArrayTree,index);
+        result = createArray(index);
+        print(index, result);
+        result = removeElementsMoreIndex(index, result);
+        print(index, result);
+        printChanges(result, index);
+
         index = 14;
-        float[] randomArrayFour = changeElementsMoreIndex(index);
-        print(randomArrayFour,index);
+        result = createArray(index);
+        print(index, result);
+        result = removeElementsMoreIndex(index, result);
+        print(index, result);
+        printChanges(result, index);
     }
 
-    public static float[] changeElementsMoreIndex(int index) {
-        float[] randomFloats = new float[15];
+    private static float[] createArray(int index) {
         Random rnd = new Random();
+        float[] newArray = new float[15];
+        for (int i = 0; i < newArray.length; i++) {
+            newArray[i] = rnd.nextFloat(0, 1);
+        }
+        if (index >= 0 && index <= newArray.length - 1) System.out.println("Исходный массив: ");
+        return newArray;
+    }
 
+    private static float[] removeElementsMoreIndex(int index, float[] randomFloats) {
         if (index < 0 || index >= randomFloats.length) {
             System.out.println("Индекс должен быть больше нуля и меньше длины массива: " + randomFloats.length + "\n");
-            randomFloats = new float[0];
-            return randomFloats;
+            return new float[0];
         }
-        for (int i = 0; i < randomFloats.length; i++) {
-            randomFloats[i] = rnd.nextFloat(0, 1);
-        }
-        System.out.println("Исходный массив: ");
-        for (int i = 0; i < randomFloats.length; i++) {
-            if (i == 8) {
-                System.out.print("\n");
-            }
-            System.out.printf("%6.3f", randomFloats[i]);
+        if (index > 0 || index < randomFloats.length - 1) {
+            System.out.println("Измененный массив: ");
         }
         for (int i = 0; i < randomFloats.length; i++) {
             if (randomFloats[i] > randomFloats[index]) {
@@ -49,8 +63,7 @@ public class ExceedingNumsRemover {
         return randomFloats;
     }
 
-
-    private static void print(float[] array, int index) {
+    private static void print(int index, float[] array) {
         if (index < 0 || index >= array.length) {
             return;
         }
@@ -61,7 +74,11 @@ public class ExceedingNumsRemover {
             System.out.printf("%6.3f", array[i]);
         }
         System.out.println();
-        System.out.println("Значение ячейки по переданному адресу: " + array[index]);
+    }
+
+    private static void printChanges(float[] array, int index) {
+        if (index < 0 || index > array.length - 1) return;
+        System.out.printf("%s%.3f%n", "Значение из ячейки по переданному индексу: ", array[index]);
         System.out.println("Количество обнуленных ячеек: " + counter + "\n");
     }
 }
