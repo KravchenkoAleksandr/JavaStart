@@ -8,19 +8,19 @@ public class Factorial {
         int[] nulable = null;
         result = calcFactorial(nulable);
         printResults(result, nulable);
-        int[] fourNumbers = {0, 8, 0, 9};
-        result = calcFactorial(fourNumbers);
-        printResults(result, fourNumbers);
-        int[] randomFourNum = {-3, 1, 7, 13};
-        result = calcFactorial(randomFourNum);
-        printResults(result, randomFourNum);
-        int[] negativeNum = {-22, -0};
-        result = calcFactorial(negativeNum);
-        printResults(result, negativeNum);
+        int[] fourNums = {0, 8, 0, 9};
+        result = calcFactorial(fourNums);
+        printResults(result, fourNums);
+        int[] secondFourNum = {-3, 1, 7, 13};
+        result = calcFactorial(secondFourNum);
+        printResults(result, secondFourNum);
+        int[] negativeNums = {-22, -0};
+        result = calcFactorial(negativeNums);
+        printResults(result, negativeNums);
     }
 
     private static long[] calcFactorial(int... array) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return new long[0];
         }
         long[] factorialResults = new long[array.length];
