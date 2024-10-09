@@ -7,52 +7,35 @@ public class ExceedingNumsRemover {
     static int counter;
 
     public static void main(String[] args) {
-        int index = -1;
-        float[] result = createArray(index);
-        print(index, result);
-        result = removeElementsMoreIndex(index, result);
-        print(index, result);
-        printChanges(result, index);
-
-        index = 15;
-        result = createArray(index);
-        print(index, result);
-        result = removeElementsMoreIndex(index, result);
-        print(index, result);
-        printChanges(result, index);
-
-        index = 0;
-        result = createArray(index);
-        print(index, result);
-        result = removeElementsMoreIndex(index, result);
-        print(index, result);
-        printChanges(result, index);
-
-        index = 14;
-        result = createArray(index);
-        print(index, result);
-        result = removeElementsMoreIndex(index, result);
-        print(index, result);
-        printChanges(result, index);
+        int[] indexes = {-1, 15, 0, 14};
+        for (int index : indexes) {
+            float[] result = createArray();
+            if (index < 0 || index > result.length - 1) {
+                System.out.println("Индекс должен быть больше нуля и меньше длины массива: " + (result.length - 1) + "\n");
+                continue;
+            }
+            System.out.println("Исходный массив: ");
+            print(index, result);
+            result = removeElementsMoreIndex(index, result);
+            System.out.println("Измененный массив: ");
+            print(index, result);
+            printChanges(result, index);
+            counter = 0;
+        }
     }
 
-    private static float[] createArray(int index) {
+    private static float[] createArray() {
         Random rnd = new Random();
         float[] newArray = new float[15];
         for (int i = 0; i < newArray.length; i++) {
             newArray[i] = rnd.nextFloat(0, 1);
         }
-        if (index >= 0 && index <= newArray.length - 1) System.out.println("Исходный массив: ");
         return newArray;
     }
 
     private static float[] removeElementsMoreIndex(int index, float[] randomFloats) {
-        if (index < 0 || index >= randomFloats.length) {
-            System.out.println("Индекс должен быть больше нуля и меньше длины массива: " + randomFloats.length + "\n");
+        if (index < 0 || index > randomFloats.length) {
             return new float[0];
-        }
-        if (index > 0 || index < randomFloats.length - 1) {
-            System.out.println("Измененный массив: ");
         }
         for (int i = 0; i < randomFloats.length; i++) {
             if (randomFloats[i] > randomFloats[index]) {
