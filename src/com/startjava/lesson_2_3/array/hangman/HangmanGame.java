@@ -1,8 +1,5 @@
 package com.startjava.lesson_2_3.array.hangman;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -20,11 +17,10 @@ public class HangmanGame {
     };
     private static int errorCount;
     private static boolean hasLetter;
-    static File file = new File("Words");
     static Random rnd = new Random();
     static Scanner scanner = new Scanner(System.in);
 
-    public static void gameplay() throws IOException {
+    public void gameplay() {
         String[] secretWord = selectSecretWord();
         String[] closeSecretWord = closedSecretWord(secretWord);
         String[] errorLetter = new String[secretWord.length];
@@ -53,7 +49,7 @@ public class HangmanGame {
             printGallows(errorCount, gallows);
             System.out.println("Количество оставшихся попыток: " + (ATTEMPS - errorCount));
             addErrorLetter(hasLetter, errorLetter, letter);
-            System.out.print("Ошибочно введеные букы: ");
+            System.out.print("Ошибочно введенные букы: ");
             print(errorLetter);
             System.out.println("________________________________________________________");
 
@@ -68,9 +64,8 @@ public class HangmanGame {
         print(secretWord);
     }
 
-    private static String[] selectSecretWord() throws IOException {
-        String str = Files.readString(file.toPath());
-        String[] words = str.split(",");
+    private static String[] selectSecretWord() {
+        String[] words = {"Ученый", "Восстановление", "Телеграф", "Профиль", "Синтаксис", "Спортсмен", "Керамика"};
         String rndWord = words[rnd.nextInt(words.length)].toLowerCase();
         return rndWord.split("");
     }
