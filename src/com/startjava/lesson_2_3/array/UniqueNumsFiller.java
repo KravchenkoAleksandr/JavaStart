@@ -31,7 +31,7 @@ public class UniqueNumsFiller {
 
     public static int[] fill(int start, int end, int quantity) {
         if (start > end || quantity <= 0) {
-            return null;
+            return new int[0];
         }
         double len = (Math.abs(start) + end) * 0.75;
         int[] uniqueNums = new int[(int) Math.ceil(len)];
@@ -55,17 +55,16 @@ public class UniqueNumsFiller {
         return uniqueNums;
     }
 
-    public static void printArray(int[] array, int print) {
-        if (array == null) return;
+    public static void printArray(int[] array, int quantity) {
         int len = array.length;
         if (len == 0) {
             System.out.println("Ошибка: длина массива должна быть больше 0 (" + array.length + ")\n");
             return;
         }
         for (int i = 0; i < array.length; i++) {
-            if (i - print == 0) {
+            if (i - quantity == 0) {
                 System.out.println("\n");
-                print *= 2;
+                quantity *= 2;
             }
             System.out.printf("%3d ", array[i]);
         }
