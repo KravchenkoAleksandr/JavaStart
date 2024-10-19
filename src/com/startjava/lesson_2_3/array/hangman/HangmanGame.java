@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class HangmanGame {
 
-    private static final int ATTEMPS = 6;
     private static final String[] gallows = {
             "________",
             "|      |",
@@ -15,47 +14,49 @@ public class HangmanGame {
             "|     / \\",
             "| GAME OVER!"
     };
-    private static int errorCount;
-    private static boolean hasLetter;
-    static Random rnd = new Random();
-    static Scanner scanner = new Scanner(System.in);
+    private static final int ATTEMPS = gallows.length;
 
-    public void gameplay() {
+    public void start() {
         String[] secretWord = selectSecretWord();
-        String[] closeSecretWord = closedSecretWord(secretWord);
-        String[] errorLetter = new String[secretWord.length];
-        String[] letterInputPlayer = new String[secretWord.length * 2];
+        String[] closeSecretWord = maskSecretWord(secretWord);
+        String[] wrongLetters = new String[secretWord.length];
+        String[] enteredLetters = new String[secretWord.length * 2];
         System.out.println("Отгадайте слово из " + secretWord.length + " букв.");
         print(closeSecretWord);
-        while (errorCount < ATTEMPS && !isWon(closeSecretWord)) {
-            hasLetter = false;
+        int errorCount = 0;
+        while (errorCount < ATTEMPS && !isWon(closeSecretWord, secretWord)) {
             String letter;
+            boolean isCyrillicLetter;
+            boolean isRepeated;
             do {
                 System.out.println("Введите букву: ");
-                letter = scanner.nextLine().toLowerCase();
-                if (isRussian(letter)) {
+                letter = inputLetter();
+                isCyrillicLetter = isCyrillic(letter);
+                isRepeated = isRepeat(enteredLetters, letter);
+                if (isCyrillicLetter) {
                     System.out.println("Ошибка: вы ввели букву не из русского алфавита!");
                 }
-                if (isRepeat(letterInputPlayer, letter)) {
+                if (isRepeated) {
                     System.out.println("Буква введена повторно! Введите другую букву!");
                 }
-            } while (isRussian(letter) || isRepeat(letterInputPlayer, letter));
-            addAllLetter(letter, letterInputPlayer);
-            checkInputLetter(letter, secretWord, closeSecretWord);
-            counterAttemps(hasLetter);
+            } while (isCyrillicLetter || isRepeated);
+            addAllLetter(letter, enteredLetters);
+            boolean hasLetter;
+            hasLetter = checkInputLetter(letter, secretWord, closeSecretWord);
+            errorCount = calcAttemps(hasLetter, errorCount);
             System.out.println("________________________________________________________");
             System.out.print("Угадываемое слово: ");
             print(closeSecretWord);
             printGallows(errorCount, gallows);
             System.out.println("Количество оставшихся попыток: " + (ATTEMPS - errorCount));
-            addErrorLetter(hasLetter, errorLetter, letter);
+            addErrorLetter(hasLetter, wrongLetters, letter);
             System.out.print("Ошибочно введенные букы: ");
-            print(errorLetter);
+            print(wrongLetters);
             System.out.println("________________________________________________________");
 
 
         }
-        if (isWon(closeSecretWord)) {
+        if (isWon(closeSecretWord, secretWord)) {
             System.out.println("Вы выиграли!");
         } else {
             System.out.println("Вы проиграли!");
@@ -65,12 +66,13 @@ public class HangmanGame {
     }
 
     private static String[] selectSecretWord() {
+        Random rnd = new Random();
         String[] words = {"Ученый", "Восстановление", "Телеграф", "Профиль", "Синтаксис", "Спортсмен", "Керамика"};
-        String rndWord = words[rnd.nextInt(words.length)].toLowerCase();
-        return rndWord.split("");
+        String secretWord = words[rnd.nextInt(words.length)].toLowerCase();
+        return secretWord.split("");
     }
 
-    private static String[] closedSecretWord(String[] secretWord) {
+    private static String[] maskSecretWord(String[] secretWord) {
         String[] closeSecretWord = new String[secretWord.length];
         Arrays.fill(closeSecretWord, "*");
         return closeSecretWord;
@@ -85,14 +87,16 @@ public class HangmanGame {
         System.out.println();
     }
 
-    private static boolean isWon(String[] closeSecretWord) {
-        for (String s : closeSecretWord) {
-            if (s.equals("*")) return false;
-        }
-        return true;
+    private static boolean isWon(String[] closeSecretWord, String[] secretWord) {
+        return Arrays.equals(closeSecretWord, secretWord);
     }
 
-    private static boolean isRussian(String letter) {
+    private static String inputLetter() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine().toLowerCase();
+    }
+
+    private static boolean isCyrillic(String letter) {
         return letter.matches("[^а-яА-Я]");
     }
 
@@ -112,21 +116,24 @@ public class HangmanGame {
         }
     }
 
-    private static void checkInputLetter(String letter, String[] secretWord, String[] closeSecretWord) {
+    private static boolean checkInputLetter(String letter, String[] secretWord, String[] closeSecretWord) {
+        boolean hasLetter = false;
         for (int i = 0; i < secretWord.length; i++) {
             if (letter.equals(secretWord[i])) {
                 closeSecretWord[i] = letter;
                 hasLetter = true;
             }
         }
+        return hasLetter;
     }
 
-    private static void counterAttemps(boolean hasLetter) {
+    private static int calcAttemps(boolean hasLetter, int errorCount) {
         if (hasLetter && errorCount != 0) {
-            --errorCount;
+            return --errorCount;
         } else if (!hasLetter && errorCount < ATTEMPS) {
-            ++errorCount;
+            return ++errorCount;
         }
+        return errorCount;
     }
 
     private static void printGallows(int errorCount, String[] pictureGallows) {
@@ -141,7 +148,6 @@ public class HangmanGame {
             if (errorLetter[i] != null) continue;
             errorLetter[i] = letter.toUpperCase();
             return;
-
         }
     }
 }
