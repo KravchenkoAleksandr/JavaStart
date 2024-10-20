@@ -1,4 +1,4 @@
-package com.startjava.lesson_2_3.array.hangman;
+package com.startjava.lesson_2_3.array;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -17,6 +17,7 @@ public class HangmanGame {
     private static final int ATTEMPS = gallows.length;
 
     public void start() {
+        Scanner scanner = new Scanner(System.in);
         String[] secretWord = selectSecretWord();
         String[] closeSecretWord = maskSecretWord(secretWord);
         String[] wrongLetters = new String[secretWord.length];
@@ -30,7 +31,7 @@ public class HangmanGame {
             boolean isRepeated;
             do {
                 System.out.println("Введите букву: ");
-                letter = inputLetter();
+                letter = inputLetter(scanner);
                 isCyrillicLetter = isCyrillic(letter);
                 isRepeated = isRepeat(enteredLetters, letter);
                 if (isCyrillicLetter) {
@@ -91,8 +92,7 @@ public class HangmanGame {
         return Arrays.equals(closeSecretWord, secretWord);
     }
 
-    private static String inputLetter() {
-        Scanner scanner = new Scanner(System.in);
+    private static String inputLetter(Scanner scanner) {
         return scanner.nextLine().toLowerCase();
     }
 
