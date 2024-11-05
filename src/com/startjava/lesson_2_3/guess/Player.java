@@ -17,7 +17,13 @@ public class Player {
     }
 
     public int[] getEnteredNumbers() {
-        return enteredNumbers;
+        return Arrays.copyOf(enteredNumbers, attempts);
+    }
+
+    public void setEnteredNumbers(int index, int value) {
+        if (index >= 0 && index < enteredNumbers.length) {
+        enteredNumbers[index] = value;
+        }
     }
 
     public int getAttempts() {
@@ -28,11 +34,8 @@ public class Player {
         this.attempts = attempts;
     }
 
-    int[] takingInputNumbers(int[] enteredNumbers, int attempts) {
-        return Arrays.copyOf(enteredNumbers, attempts);
-    }
-
-    void cleanArrayEnteredNumbers(int[] enteredNumbers, int[] arrayInputNumbers) {
-        Arrays.fill(enteredNumbers, 0, arrayInputNumbers.length, 0);
+    void cleanArrayEnteredNumbers() {
+        Arrays.fill(enteredNumbers, 0, getEnteredNumbers().length, 0);
     }
 }
+
