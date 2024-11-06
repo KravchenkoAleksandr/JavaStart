@@ -4,9 +4,10 @@ import java.util.Arrays;
 
 public class Player {
 
+    private static final int ATTEMPTS = 10;
     private String name;
-    private int[] enteredNumbers = new int[10];
-    private int attempts;
+    private int[] enteredNumbers = new int[ATTEMPTS];
+    int attempts;
 
     public Player(String name) {
         this.name = name;
@@ -20,22 +21,17 @@ public class Player {
         return Arrays.copyOf(enteredNumbers, attempts);
     }
 
-    public void setEnteredNumbers(int index, int value) {
-        if (index >= 0 && index < enteredNumbers.length) {
-        enteredNumbers[index] = value;
-        }
-    }
-
     public int getAttempts() {
         return attempts;
     }
 
-    public void setAttempts(int attempts) {
-        this.attempts = attempts;
+    public void addNumber(int index, int number) {
+        enteredNumbers[index] = number;
     }
 
-    void cleanArrayEnteredNumbers() {
-        Arrays.fill(enteredNumbers, 0, getEnteredNumbers().length, 0);
+    void clear() {
+        Arrays.fill(enteredNumbers, 0, attempts, 0);
+        attempts = 0;
     }
 }
 

@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class GuessNumber {
 
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
     private static final int MAX_ATTEMPTS = 10;
     private Player player1;
     private Player player2;
@@ -19,53 +17,50 @@ public class GuessNumber {
     }
 
     public void start() {
-        player1.setAttempts(0);
-        player2.setAttempts(0);
+        Random random = new Random();
+        player1.clear();
+        player2.clear();
         System.out.println("Игра началась! У каждого игрока по " + MAX_ATTEMPTS + " попыток.\n");
-        thinkSecretNumber();
-        boolean isGameOver = false;
+        thinkSecretNumber(random);
+        boolean isWon = false;
         int countAttempts = 0;
-        while (!isGameOver) {
+        while (!isWon) {
             if (isMoveSuccessful(player1)) {
                 break;
             }
-            isGameOver = isMoveSuccessful(player2);
+            isWon = isMoveSuccessful(player2);
             countAttempts++;
             if (countAttempts == MAX_ATTEMPTS) break;
         }
-        int[] outputNumbersPlayer1 = player1.getEnteredNumbers();
-        int[] outputNumbersPlayer2 = player2.getEnteredNumbers();
-        print(outputNumbersPlayer1, player1);
-        print(outputNumbersPlayer2, player2);
-        player1.cleanArrayEnteredNumbers();
-        player2.cleanArrayEnteredNumbers();
+        printInputNumber(player1);
+        printInputNumber(player2);
+        player1.clear();
+        player2.clear();
     }
 
-    private void thinkSecretNumber() {
+    private void thinkSecretNumber(Random random) {
         secretNumber = random.nextInt(0, 101);
     }
 
     private boolean isMoveSuccessful(Player player) {
-        int inputNumberPlayer;
+        Scanner scanner = new Scanner(System.in);
         if (player.getAttempts() < MAX_ATTEMPTS) {
-            inputNumberPlayer = inputNumberPlayer(player, player.getAttempts());
-            player.setEnteredNumbers(player.getAttempts() - 1, inputNumberPlayer);
+            int inputNumberPlayer = inputNumberPlayer(player, scanner);
+            player.addNumber(player.getAttempts() - 1, inputNumberPlayer);
             printAttempts(player);
             return isGuessed(player);
-        } else {
-            printAttempts(player);
         }
+        printAttempts(player);
         return false;
     }
 
-    private int inputNumberPlayer(Player player, int attempts) {
-        if (attempts > MAX_ATTEMPTS) {
+    private int inputNumberPlayer(Player player, Scanner scanner) {
+        if (player.attempts > MAX_ATTEMPTS) {
             return -1;
-        } else {
-            System.out.println(player.getName() + " введите число");
-            inputNumber = scanner.nextInt();
-            player.setAttempts(++attempts);
         }
+        System.out.println(player.getName() + " введите число");
+        inputNumber = scanner.nextInt();
+        player.attempts++;
         return inputNumber;
     }
 
@@ -84,9 +79,9 @@ public class GuessNumber {
         System.out.println("Количество использованных попыток: " + player.getAttempts());
     }
 
-    private void print(int[] array, Player player) {
+    private void printInputNumber(Player player) {
         System.out.print("Числа введенные игроком " + player.getName() + ": ");
-        for (int i : array) {
+        for (int i : player.getEnteredNumbers()) {
             System.out.print(i + " ");
         }
         System.out.println();
