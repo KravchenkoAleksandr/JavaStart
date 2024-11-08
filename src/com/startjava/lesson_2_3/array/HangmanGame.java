@@ -19,13 +19,13 @@ public class HangmanGame {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         String[] secretWord = selectSecretWord();
-        String[] closeSecretWord = maskSecretWord(secretWord);
+        String[] maskSecretWord = maskSecretWord(secretWord);
         String[] wrongLetters = new String[secretWord.length];
         String[] enteredLetters = new String[secretWord.length * 2];
         System.out.println("Отгадайте слово из " + secretWord.length + " букв.");
-        print(closeSecretWord);
+        print(maskSecretWord);
         int errorCount = 0;
-        while (errorCount < ATTEMPS && !isWon(closeSecretWord, secretWord)) {
+        while (errorCount < ATTEMPS && !isWon(maskSecretWord, secretWord)) {
             String letter;
             boolean isCyrillicLetter;
             boolean isRepeated;
@@ -43,21 +43,19 @@ public class HangmanGame {
             } while (isCyrillicLetter || isRepeated);
             addAllLetter(letter, enteredLetters);
             boolean hasLetter;
-            hasLetter = checkInputLetter(letter, secretWord, closeSecretWord);
+            hasLetter = checkInputLetter(letter, secretWord, maskSecretWord);
             errorCount = calcAttemps(hasLetter, errorCount);
             System.out.println("________________________________________________________");
             System.out.print("Угадываемое слово: ");
-            print(closeSecretWord);
+            print(maskSecretWord);
             printGallows(errorCount, gallows);
             System.out.println("Количество оставшихся попыток: " + (ATTEMPS - errorCount));
             addErrorLetter(hasLetter, wrongLetters, letter);
             System.out.print("Ошибочно введенные букы: ");
             print(wrongLetters);
             System.out.println("________________________________________________________");
-
-
         }
-        if (isWon(closeSecretWord, secretWord)) {
+        if (isWon(maskSecretWord, secretWord)) {
             System.out.println("Вы выиграли!");
         } else {
             System.out.println("Вы проиграли!");
