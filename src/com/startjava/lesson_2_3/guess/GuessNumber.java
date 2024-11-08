@@ -2,7 +2,6 @@ package com.startjava.lesson_2_3.guess;
 
 import java.util.Random;
 import java.util.Scanner;
-
 import static com.startjava.lesson_2_3.guess.Player.ATTEMPTS;
 
 public class GuessNumber {
