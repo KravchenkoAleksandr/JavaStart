@@ -25,12 +25,9 @@ public class Player {
         return attempt;
     }
 
-    public void setAttempt() {
-        this.attempt++;
-    }
-
     public void addNumber(int number) {
         enteredNumbers[attempt] = number;
+        attempt++;
     }
 
     void clear() {

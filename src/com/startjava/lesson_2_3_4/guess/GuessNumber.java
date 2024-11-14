@@ -57,7 +57,6 @@ public class GuessNumber {
             System.out.println(player.getName() + " введите число");
             inputNumber = scanner.nextInt();
             player.addNumber(inputNumber);
-            player.setAttempt();
         }
     }
 
