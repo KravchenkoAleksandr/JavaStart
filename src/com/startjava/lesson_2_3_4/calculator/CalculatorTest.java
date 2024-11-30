@@ -5,15 +5,19 @@ import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in);
         String continuation = "yes";
         while (!continuation.equals("no")) {
             if (continuation.equals("yes")) {
                 System.out.println("Введите математическое выражение:");
-                String expression = scanner.nextLine();
-                double result = calculator.calculates(expression);
-                print(result);
+                String expression = inputExpression(scanner);
+                try {
+                    double result = Calculator.calculates(expression);
+                    print(result);
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 System.out.println("Хотите продолжить вычисления? [yes / no]:");
             } else {
                 System.out.println("Введите корректный ответ [yes / no]:");
@@ -22,10 +26,14 @@ public class CalculatorTest {
         }
     }
 
+    private static String inputExpression(Scanner console) {
+        return console.nextLine()
+                .trim()
+                .replaceAll("\\s+", " ");
+    }
+
     private static void print(double result) {
-        if (!Double.isNaN(result)) {
-            DecimalFormat decimalFormat = new DecimalFormat("#.###");
-            System.out.println(decimalFormat.format(result));
-        }
+        System.out.println(new DecimalFormat("#.###").format(result));
     }
 }
+
