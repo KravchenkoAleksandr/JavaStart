@@ -7,19 +7,25 @@ import static com.startjava.lesson_2_3_4.guess.Player.ATTEMPTS;
 
 public class GuessNumber {
 
-    private Player player1;
-    private Player player2;
+    static final int NUMBER_PLAYERS = 3;
+    private Player[] players = new Player[NUMBER_PLAYERS];
     private int secretNumber;
 
-    public GuessNumber(String namePlayer1, String namePlayer2) {
-        player1 = new Player(namePlayer1);
-        player2 = new Player(namePlayer2);
+    public GuessNumber(Player[] players) {
+        for (int i = 0; i < NUMBER_PLAYERS; i++) {
+            players[i] = new Player(players[i].getName());
+        }
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 
     public void start() {
         Random random = new Random();
-        player1.clear();
-        player2.clear();
+        for (Player player : players) {
+            player.clear();
+        }
         System.out.println("Игра началась! У каждого игрока по " + ATTEMPTS + " попыток.\n");
         thinkSecretNumber(random);
         boolean isWon = false;
@@ -32,8 +38,6 @@ public class GuessNumber {
         }
         printEnteredNumber(player1);
         printEnteredNumber(player2);
-        player1.clear();
-        player2.clear();
     }
 
     private void thinkSecretNumber(Random random) {

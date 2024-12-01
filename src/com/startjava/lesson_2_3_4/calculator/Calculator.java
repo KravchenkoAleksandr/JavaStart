@@ -27,9 +27,9 @@ public class Calculator {
         };
     }
 
-    private static void checkLength(String[] elements) throws LimitExpression {
+    private static void checkLength(String[] elements) {
         if (elements.length != MAX_LENGTH_EXPRESSION) {
-            throw new LimitExpression("Количество элементов должно равнятся:" + MAX_LENGTH_EXPRESSION);
+            throw new LimitExpression("Количество элементов должно равняться " + MAX_LENGTH_EXPRESSION);
         }
     }
 
