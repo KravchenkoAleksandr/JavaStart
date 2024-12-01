@@ -44,6 +44,7 @@ public class GuessNumber {
         Scanner scanner = new Scanner(System.in);
         if (player.getAttempt() < ATTEMPTS) {
             inputNumberPlayer(player, scanner);
+            System.out.print("Игрок: " + player.getName());
             printAttempts(player.getAttempt());
             return isGuessed(player, player.getEnteredNumbers()[player.getAttempt() - 1]);
         }
@@ -53,11 +54,24 @@ public class GuessNumber {
 
     private void inputNumberPlayer(Player player, Scanner scanner) {
         if (player.getAttempt() < ATTEMPTS) {
-            int inputNumber;
+            int inputNumber = 0;
             System.out.println(player.getName() + " введите число");
-            inputNumber = scanner.nextInt();
+            boolean isValid = true;
+            while (isValid) {
+                inputNumber = scanner.nextInt();
+                isValid = checkNum(inputNumber);
+            }
             player.addNumber(inputNumber);
         }
+    }
+
+    private boolean checkNum(int inputNum) {
+        if (inputNum < 1 || inputNum > 100) {
+            System.out.println("Число должно входить в отрезок [1, 100].\n" +
+                    "Попробуйте еще раз:");
+            return true;
+        }
+        return false;
     }
 
     private boolean isGuessed(Player player, int inputNumber) {
@@ -72,7 +86,7 @@ public class GuessNumber {
     }
 
     private void printAttempts(int attempt) {
-        System.out.println("Количество использованных попыток: " + attempt);
+        System.out.println(" - количество использованных попыток: " + attempt);
     }
 
     private void printEnteredNumber(Player player) {

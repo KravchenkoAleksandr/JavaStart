@@ -26,7 +26,9 @@ public class Player {
     }
 
     public void addNumber(int number) {
-        enteredNumbers[attempt] = number;
+        if (number >= 1 && number <= 100) {
+            enteredNumbers[attempt] = number;
+        }
         attempt++;
     }
 

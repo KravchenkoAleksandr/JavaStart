@@ -12,7 +12,7 @@ public class CalculatorTest {
                 System.out.println("Введите математическое выражение:");
                 String expression = inputExpression(scanner);
                 try {
-                    double result = Calculator.calculates(expression);
+                    double result = Calculator.calculate(expression);
                     print(result);
                 } catch (RuntimeException e) {
                     System.out.println(e.getMessage());
