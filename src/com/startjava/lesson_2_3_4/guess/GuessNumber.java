@@ -8,36 +8,66 @@ import static com.startjava.lesson_2_3_4.guess.Player.ATTEMPTS;
 public class GuessNumber {
 
     static final int NUMBER_PLAYERS = 3;
-    private Player[] players = new Player[NUMBER_PLAYERS];
+    static final int NUMBER_ROUND = 3;
+    static final int POINT_FOR_WINS = 3;
+    static final int POINT_FOR_DRAW = 1;
+
+    int counterRounds = 1;
+    private Player[] players;
     private int secretNumber;
 
     public GuessNumber(Player[] players) {
-        for (int i = 0; i < NUMBER_PLAYERS; i++) {
-            players[i] = new Player(players[i].getName());
-        }
-    }
-
-    public Player[] getPlayers() {
-        return players;
+        this.players = players;
     }
 
     public void start() {
+        //метод жребия перед началом игры
+        calculateMatchRound();
+    }
+
+    //private void бросить жребий
+
+    private void calculateMatchRound() {
+        if (counterRounds < NUMBER_ROUND) {
+            playRound();
+        }
+        findGameWinner();
+    }
+
+    private void findGameWinner() {
+
+    }
+
+    private void playRound() {
         Random random = new Random();
         for (Player player : players) {
             player.clear();
         }
-        System.out.println("Игра началась! У каждого игрока по " + ATTEMPTS + " попыток.\n");
+        System.out.println("Раунд № " + counterRounds + ". У каждого игрока по " + ATTEMPTS + " попыток.\n");
         thinkSecretNumber(random);
         boolean isWon = false;
         int countAttempts = 0;
         while (!isWon) {
-            if (isMoveSuccessful(player1)) break;
-            isWon = isMoveSuccessful(player2);
-            countAttempts++;
-            if (countAttempts == ATTEMPTS) break;
+            for (Player player : players) {
+                if (isMoveSuccessful(player)) {
+                    player.setNumberWins(POINT_FOR_WINS);
+                    counterRounds++;
+                    isWon = true;
+                }
+                countAttempts++;
+            }
+            if (countAttempts == ATTEMPTS) {
+                for (Player player : players) {
+                    player.setNumberWins(POINT_FOR_DRAW);
+                }
+                counterRounds++;
+                break;
+            }
         }
-        printEnteredNumber(player1);
-        printEnteredNumber(player2);
+        for (Player player : players) {
+            printEnteredNumber(player);
+
+        }
     }
 
     private void thinkSecretNumber(Random random) {
@@ -81,7 +111,7 @@ public class GuessNumber {
     private boolean isGuessed(Player player, int inputNumber) {
         if (inputNumber == secretNumber) {
             System.out.println("Игрок " + player.getName() + " угадал число " + secretNumber + " с " + player.getAttempt()
-                    + "-й попытки и победил!\n");
+                    + "-й попытки и победил в " + counterRounds + " раунде!\n");
             return true;
         }
         String text = inputNumber > secretNumber ? " больше" : " меньше";

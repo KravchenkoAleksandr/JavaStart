@@ -8,6 +8,7 @@ public class Player {
     private String name;
     private int[] enteredNumbers = new int[ATTEMPTS];
     private int attempt;
+    private int numberWins;
 
     public Player(String name) {
         this.name = name;
@@ -23,6 +24,14 @@ public class Player {
 
     public int getAttempt() {
         return attempt;
+    }
+
+    public int getNumberWins() {
+        return numberWins;
+    }
+
+    public void setNumberWins(int numberWins) {
+        this.numberWins = numberWins;
     }
 
     public void addNumber(int number) {
