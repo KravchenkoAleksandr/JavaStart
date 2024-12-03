@@ -31,14 +31,18 @@ public class Player {
     }
 
     public void setNumberWins(int numberWins) {
-        this.numberWins = numberWins;
+        this.numberWins += numberWins;
     }
 
-    public void addNumber(int number) {
+    void addNumber(int number) {
         if (number >= 1 && number <= 100) {
             enteredNumbers[attempt] = number;
         }
         attempt++;
+    }
+
+    int takeLastEnteredNum() {
+        return enteredNumbers[attempt];
     }
 
     void clear() {

@@ -10,7 +10,7 @@ public class GuessNumber {
     static final int NUMBER_PLAYERS = 3;
     static final int NUMBER_ROUND = 3;
     static final int POINT_FOR_WINS = 3;
-    static final int POINT_FOR_DRAW = 1;
+    static final int POINT_FOR_DRAW = 0;
 
     int counterRounds = 1;
     private Player[] players;
@@ -21,41 +21,44 @@ public class GuessNumber {
     }
 
     public void start() {
-        //метод жребия перед началом игры
-        calculateMatchRound();
-    }
-
-    //private void бросить жребий
-
-    private void calculateMatchRound() {
-        if (counterRounds < NUMBER_ROUND) {
+        determineFirstMove();
+        System.out.print("Жребий брошен! Игроки ходят в следующем порядке: ");
+        for (Player player : players) {
+            System.out.print(player.getName() + " ");
+        }
+        while (counterRounds <= NUMBER_ROUND) {
             playRound();
         }
         findGameWinner();
     }
 
-    private void findGameWinner() {
-
+    private void determineFirstMove() {
+        Random rnd = new Random();
+        int lastIndex = players.length - 1;
+        for (int i = 0; i < players.length; i++) {
+            int rndNum = rnd.nextInt(players.length - i);
+            Player tmp = players[lastIndex];
+            players[lastIndex] = players[rndNum];
+            players[rndNum] = tmp;
+        }
     }
 
     private void playRound() {
         Random random = new Random();
-        for (Player player : players) {
-            player.clear();
-        }
-        System.out.println("Раунд № " + counterRounds + ". У каждого игрока по " + ATTEMPTS + " попыток.\n");
+        System.out.println("\nРаунд № " + counterRounds + ". У каждого игрока по " + ATTEMPTS + " попыток.\n");
         thinkSecretNumber(random);
-        boolean isWon = false;
+        boolean isWon = true;
         int countAttempts = 0;
-        while (!isWon) {
+        while (isWon) {
             for (Player player : players) {
                 if (isMoveSuccessful(player)) {
                     player.setNumberWins(POINT_FOR_WINS);
                     counterRounds++;
-                    isWon = true;
+                    isWon = false;
+                    break;
                 }
-                countAttempts++;
             }
+            countAttempts++;
             if (countAttempts == ATTEMPTS) {
                 for (Player player : players) {
                     player.setNumberWins(POINT_FOR_DRAW);
@@ -66,7 +69,25 @@ public class GuessNumber {
         }
         for (Player player : players) {
             printEnteredNumber(player);
+            player.clear();
+        }
+    }
 
+    private void findGameWinner() {
+        int maxPoints = 0;
+        for (Player value : players) {
+            if (maxPoints < value.getNumberWins()) {
+                maxPoints = value.getNumberWins();
+            }
+        }
+        if (maxPoints == 0) {
+            System.out.println("\nНичья!");
+            return;
+        }
+        for (Player player : players) {
+            if (player.getNumberWins() == maxPoints) {
+                System.out.println("\nПобедил игрок: " + player.getName() + "\nНабранное количество очков: " + maxPoints);
+            }
         }
     }
 
@@ -77,25 +98,27 @@ public class GuessNumber {
     private boolean isMoveSuccessful(Player player) {
         Scanner scanner = new Scanner(System.in);
         if (player.getAttempt() < ATTEMPTS) {
-            inputNumberPlayer(player, scanner);
+            inputPlayerNumber(player, scanner);
             System.out.print("Игрок: " + player.getName());
             printAttempts(player.getAttempt());
-            return isGuessed(player, player.getEnteredNumbers()[player.getAttempt() - 1]);
+            int inputNum = player.takeLastEnteredNum();
+            System.out.println(inputNum);
+            return isGuessed(player, inputNum);
         }
         printAttempts(player.getAttempt());
         return false;
     }
 
-    private void inputNumberPlayer(Player player, Scanner scanner) {
+    private void inputPlayerNumber(Player player, Scanner scanner) {
         if (player.getAttempt() < ATTEMPTS) {
-            int inputNumber = 0;
+            int inputNum = 0;
             System.out.println(player.getName() + " введите число");
             boolean isValid = true;
             while (isValid) {
-                inputNumber = scanner.nextInt();
-                isValid = checkNum(inputNumber);
+                inputNum = scanner.nextInt();
+                isValid = checkNum(inputNum);
             }
-            player.addNumber(inputNumber);
+            player.addNumber(inputNum);
         }
     }
 
