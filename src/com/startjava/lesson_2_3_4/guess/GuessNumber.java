@@ -22,9 +22,9 @@ public class GuessNumber {
 
     public void start() {
         determineFirstMove();
-        System.out.print("Жребий брошен! Игроки ходят в следующем порядке: ");
+        System.out.println("Жребий брошен! Игроки ходят в следующем порядке: ");
         for (Player player : players) {
-            System.out.print(player.getName() + " ");
+            System.out.println(player.getName());
         }
         while (counterRounds <= NUMBER_ROUND) {
             playRound();
@@ -47,21 +47,23 @@ public class GuessNumber {
         Random random = new Random();
         System.out.println("\nРаунд № " + counterRounds + ". У каждого игрока по " + ATTEMPTS + " попыток.\n");
         thinkSecretNumber(random);
+        System.out.println(secretNumber);
         boolean isWon = true;
         int countAttempts = 0;
         while (isWon) {
             for (Player player : players) {
                 if (isMoveSuccessful(player)) {
-                    player.setNumberWins(POINT_FOR_WINS);
+                    player.setNumberPoints(POINT_FOR_WINS);
                     counterRounds++;
                     isWon = false;
                     break;
                 }
             }
             countAttempts++;
-            if (countAttempts == ATTEMPTS) {
+            if (countAttempts == ATTEMPTS && isWon) {
+                System.out.println("В раунде ничья!\n");
                 for (Player player : players) {
-                    player.setNumberWins(POINT_FOR_DRAW);
+                    player.setNumberPoints(POINT_FOR_DRAW);
                 }
                 counterRounds++;
                 break;
@@ -69,6 +71,7 @@ public class GuessNumber {
         }
         for (Player player : players) {
             printEnteredNumber(player);
+            System.out.println("Количество очков: " + player.getNumberPoints());
             player.clear();
         }
     }
@@ -76,8 +79,8 @@ public class GuessNumber {
     private void findGameWinner() {
         int maxPoints = 0;
         for (Player value : players) {
-            if (maxPoints < value.getNumberWins()) {
-                maxPoints = value.getNumberWins();
+            if (maxPoints < value.getNumberPoints()) {
+                maxPoints = value.getNumberPoints();
             }
         }
         if (maxPoints == 0) {
@@ -85,7 +88,7 @@ public class GuessNumber {
             return;
         }
         for (Player player : players) {
-            if (player.getNumberWins() == maxPoints) {
+            if (player.getNumberPoints() == maxPoints) {
                 System.out.println("\nПобедил игрок: " + player.getName() + "\nНабранное количество очков: " + maxPoints);
             }
         }
@@ -99,10 +102,9 @@ public class GuessNumber {
         Scanner scanner = new Scanner(System.in);
         if (player.getAttempt() < ATTEMPTS) {
             inputPlayerNumber(player, scanner);
+            int inputNum = player.takeLastEnteredNum();
             System.out.print("Игрок: " + player.getName());
             printAttempts(player.getAttempt());
-            int inputNum = player.takeLastEnteredNum();
-            System.out.println(inputNum);
             return isGuessed(player, inputNum);
         }
         printAttempts(player.getAttempt());
