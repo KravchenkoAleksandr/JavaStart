@@ -7,8 +7,8 @@ import static com.startjava.lesson_2_3_4.guess.Player.ATTEMPTS;
 
 public class GuessNum {
 
-    static final int PLAYERS_NUMBER = 3;
-    private static final int NUMBER_ROUND = 3;
+    static final int PLAYERS_NUM = 3;
+    private static final int NUM_ROUND = 3;
     private static final int POINT_FOR_WINS = 3;
     private static final int POINT_FOR_DRAW = 0;
 
@@ -26,7 +26,7 @@ public class GuessNum {
         for (Player player : players) {
             System.out.println(player.getName());
         }
-        while (counterRounds <= NUMBER_ROUND) {
+        while (counterRounds <= NUM_ROUND) {
             playRound();
         }
         findGameWinner();

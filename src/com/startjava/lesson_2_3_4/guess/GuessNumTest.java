@@ -20,7 +20,7 @@ public class GuessNumTest {
     }
 
     private static Player[] createPlayers(Scanner scanner) {
-        Player[] players = new Player[GuessNum.PLAYERS_NUMBER];
+        Player[] players = new Player[GuessNum.PLAYERS_NUM];
         for (int i = 0; i < players.length; i++) {
             System.out.println("Введите имя игрока номер " + (i + 1));
             String playerName = scanner.nextLine();
