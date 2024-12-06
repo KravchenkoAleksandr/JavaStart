@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class Player {
 
     static final int ATTEMPTS = 10;
-    private String name;
-    private int[] enteredNums = new int[ATTEMPTS];
+    private final String name;
+    private final int[] enteredNums = new int[ATTEMPTS];
     private int attempt;
     private int winsCount;
 
@@ -35,7 +35,7 @@ public class Player {
     }
 
     public void addNum(int num) {
-        if (num >= 1 && num <= 100) {
+        if (num >= GuessNum.rangeStart && num <= GuessNum.rangeEnd) {
             enteredNums[attempt] = num;
         }
         attempt++;

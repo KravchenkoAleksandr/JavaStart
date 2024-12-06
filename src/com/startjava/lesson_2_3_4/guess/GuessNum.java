@@ -3,20 +3,16 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Random;
 import java.util.Scanner;
 
-import static com.startjava.lesson_2_3_4.guess.Player.ATTEMPTS;
-
 public class GuessNum {
 
-    static final int PLAYERS_NUM = 3;
     private static final int ROUND_NUM = 3;
-    private static final int POINT_FOR_WINS = 1;
-    private static final int POINT_FOR_DRAW = 0;
-    private static final int START_VALUE = 1;
-    private static final int FINISH_VALUE = 100;
+    private static final int WIN_POINT = 1;
+    static final int rangeStart = 1;
+    static final int rangeEnd = 100;
 
 
     private int roundsCounter = 1;
-    private Player[] players;
+    private final Player[] players;
     private int secretNum;
 
     public GuessNum(Player[] players) {
@@ -47,25 +43,21 @@ public class GuessNum {
     }
 
     private void playRound(Random rnd) {
-        System.out.println("\nРаунд № " + roundsCounter + ". У каждого игрока по " + ATTEMPTS + " попыток.\n");
+        System.out.println("\nРаунд № " + roundsCounter + ". У каждого игрока по " + Player.ATTEMPTS + " попыток.\n");
         thinkSecretNum(rnd);
         boolean isWon = true;
         int attemptsCount = 0;
         while (isWon) {
             for (Player player : players) {
                 if (isMoveSuccessful(player)) {
-                    player.setWinsCount(POINT_FOR_WINS);
+                    player.setWinsCount(WIN_POINT);
                     roundsCounter++;
                     isWon = false;
                     break;
                 }
             }
             attemptsCount++;
-            if (attemptsCount == ATTEMPTS && isWon) {
-                System.out.println("В раунде ничья!");
-                for (Player player : players) {
-                    player.setWinsCount(POINT_FOR_DRAW);
-                }
+            if (attemptsCount == Player.ATTEMPTS && isWon) {
                 roundsCounter++;
                 break;
             }
@@ -74,12 +66,12 @@ public class GuessNum {
     }
 
     private void thinkSecretNum(Random random) {
-        secretNum = random.nextInt(0, 101);
+        secretNum = random.nextInt(0, rangeEnd + 1);
     }
 
     private boolean isMoveSuccessful(Player player) {
         Scanner scanner = new Scanner(System.in);
-        if (player.getAttempt() < ATTEMPTS) {
+        if (player.getAttempt() < Player.ATTEMPTS) {
             int inputNum = inputPlayerNum(player, scanner);
             player.addNum(inputNum);
             System.out.print("Игрок: " + player.getName());
@@ -104,7 +96,7 @@ public class GuessNum {
             }
             isValid = isValidNum(num);
             if (!isValid) {
-                System.out.println("Число должно входить в отрезок [1, 100].\n" +
+                System.out.println("Число должно входить в отрезок [" + rangeStart + "," + rangeEnd + ".\n" +
                         "Попробуйте еще раз:");
             }
         }
@@ -112,7 +104,7 @@ public class GuessNum {
     }
 
     private boolean isValidNum(int inputNum) {
-        return inputNum >= START_VALUE && inputNum <= FINISH_VALUE;
+        return inputNum >= rangeStart && inputNum <= rangeEnd;
     }
 
     private void printTotalAttempts(int attempt) {
@@ -133,8 +125,8 @@ public class GuessNum {
     private void printEnteredNums(Player[] players) {
         for (Player player : players) {
             System.out.print("\nЧисла введенные игроком " + player.getName() + ": ");
-            for (int i : player.getEnteredNums()) {
-                System.out.print(i + " ");
+            for (int n : player.getEnteredNums()) {
+                System.out.print(n + " ");
             }
             System.out.println("\nКоличество очков: " + player.getWinsCount());
             player.clear();
@@ -143,9 +135,9 @@ public class GuessNum {
 
     private void findGameWinner() {
         int maxPoints = 0;
-        for (Player value : players) {
-            if (maxPoints < value.getWinsCount()) {
-                maxPoints = value.getWinsCount();
+        for (Player player : players) {
+            if (maxPoints < player.getWinsCount()) {
+                maxPoints = player.getWinsCount();
             }
         }
         if (maxPoints == 0) {
