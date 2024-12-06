@@ -7,8 +7,8 @@ public class GuessNum {
 
     private static final int ROUND_NUM = 3;
     private static final int WIN_POINT = 1;
-    static final int rangeStart = 1;
-    static final int rangeEnd = 100;
+    static final int RANGE_START = 1;
+    static final int RANGE_END = 100;
 
 
     private int roundsCounter = 1;
@@ -66,7 +66,7 @@ public class GuessNum {
     }
 
     private void thinkSecretNum(Random random) {
-        secretNum = random.nextInt(0, rangeEnd + 1);
+        secretNum = random.nextInt(0, RANGE_END + 1);
     }
 
     private boolean isMoveSuccessful(Player player) {
@@ -96,15 +96,15 @@ public class GuessNum {
             }
             isValid = isValidNum(num);
             if (!isValid) {
-                System.out.println("Число должно входить в отрезок [" + rangeStart + "," + rangeEnd + ".\n" +
-                        "Попробуйте еще раз:");
+                System.out.println("Число должно входить в отрезок [" + RANGE_START + "," + RANGE_END +
+                        ".\nПопробуйте еще раз:");
             }
         }
         return num;
     }
 
     private boolean isValidNum(int inputNum) {
-        return inputNum >= rangeStart && inputNum <= rangeEnd;
+        return inputNum >= RANGE_START && inputNum <= RANGE_END;
     }
 
     private void printTotalAttempts(int attempt) {

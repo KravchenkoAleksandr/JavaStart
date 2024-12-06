@@ -35,7 +35,7 @@ public class Player {
     }
 
     public void addNum(int num) {
-        if (num >= GuessNum.rangeStart && num <= GuessNum.rangeEnd) {
+        if (num >= GuessNum.RANGE_START && num <= GuessNum.RANGE_END) {
             enteredNums[attempt] = num;
         }
         attempt++;
