@@ -30,15 +30,15 @@ public class BookshelfTest {
                 if (action.equals("Нет")) break;
                 System.out.println(CONTINUE);
                 scn.nextLine();
-                bookshelf.viewCurrBooksCount();
-                bookshelf.viewFreeShelfCount();
-                bookshelf.viewBookshelf();
+                viewCurrBooksCount(bookshelf);
+                viewFreeShelfCount(bookshelf);
+                viewBookshelf(bookshelf);
                 System.out.println();
             }
         }
     }
 
-    public static void textGreeting() throws InterruptedException {
+    private static void textGreeting() throws InterruptedException {
         String text = "Добро пожаловать в приложение \"Книжный шкаф\"";
         String[] arrText = text.split(" ");
         for (String s : arrText) {
@@ -87,7 +87,7 @@ public class BookshelfTest {
             case 2 -> {
                 System.out.println("Вы выбрали удалить книгу.");
                 deleteBook(bookshelf, scn);
-                if (bookshelf.getCurrBooksCount() == 0) return "Пуст";
+                if (bookshelf.getBooksCount() == 0) return "Пуст";
             }
             case 3 -> {
                 System.out.println("Вы выбрали найти книгу по названию.");
@@ -121,7 +121,7 @@ public class BookshelfTest {
                 boolean isAdded = bookshelf.add(book1);
                 if (isAdded) {
                     System.out.println("Книга добавлена");
-                } else if (bookshelf.getCurrBooksCount() == Bookshelf.MAX_TOTAL_BOOKS) {
+                } else if (bookshelf.getBooksCount() == Bookshelf.TOTAL_BOOKS) {
                     System.out.println("Не удалось добавить книгу.В книжном шкафу закончилось место");
                 }
                 break;
@@ -145,7 +145,7 @@ public class BookshelfTest {
     private static void findBook(Bookshelf bookshelf, Scanner scn) {
         System.out.println("Введите название книги");
         String title = scn.nextLine().trim();
-        Book bookByTitle = bookshelf.findByTitle(title);
+        Book bookByTitle = bookshelf.find(title);
         if (bookByTitle != null) {
             System.out.println("По названию найдены следующие книги: ");
             printFoundBooks(bookByTitle);
@@ -156,5 +156,42 @@ public class BookshelfTest {
 
     private static void printFoundBooks(Book foundBook) {
         System.out.println(foundBook.toString());
+    }
+
+    private static void viewBookshelf(Bookshelf bookshelf) {
+        int maxLength = findMaxLengthBookshelf(bookshelf);
+        for (Book book : bookshelf.getBooks()) {
+            if (book == null) return;
+            String pipe = "|".repeat(1);
+            System.out.print(pipe);
+            System.out.print(book);
+            int len = maxLength - book.toString().length();
+            String emptySpace = " ".repeat(len);
+            System.out.print(emptySpace);
+            System.out.println(pipe);
+            System.out.print(pipe);
+            String dash = "-".repeat(maxLength);
+            System.out.print(dash);
+            System.out.println(pipe);
+        }
+    }
+
+    private static int findMaxLengthBookshelf(Bookshelf bookshelf) {
+        int maxLength = 0;
+        for (Book book : bookshelf.getBooks()) {
+            if (book == null) break;
+            String con = book.toString();
+            maxLength = Math.max(maxLength, con.length());
+        }
+        return maxLength;
+    }
+
+    private static void viewCurrBooksCount(Bookshelf bookshelf) {
+        System.out.print("В шкафу книг - " + bookshelf.getBooksCount());
+    }
+
+    private static void viewFreeShelfCount(Bookshelf bookshelf) {
+        int freeShelfCount = Bookshelf.TOTAL_BOOKS - bookshelf.getBooksCount();
+        System.out.println(", свободно полок - " + freeShelfCount + "\n");
     }
 }

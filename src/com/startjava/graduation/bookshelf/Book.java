@@ -4,12 +4,12 @@ public class Book {
 
     private final String author;
     private final String title;
-    private final int yearRelease;
+    private final int published;
 
-    public Book(String author, String title, int yearProduction) {
+    public Book(String author, String title, int published) {
         this.author = author;
         this.title = title;
-        this.yearRelease = yearProduction;
+        this.published = published;
     }
 
     public String getTitle() {
@@ -20,6 +20,6 @@ public class Book {
     public String toString() {
         return author + ", " +
                 title + ", "
-                + yearRelease;
+                + published;
     }
 }
