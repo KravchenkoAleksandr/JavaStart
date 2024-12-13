@@ -19,7 +19,7 @@ public class Book {
     @Override
     public String toString() {
         return author + ", " +
-                title + ", "
-                + published;
+                title + ", " +
+                published;
     }
 }

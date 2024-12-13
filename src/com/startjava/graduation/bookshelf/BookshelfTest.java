@@ -1,35 +1,29 @@
 package com.startjava.graduation.bookshelf;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookshelfTest {
 
-    private static final int RANGE_START_MENU = 1;
-    private static final int RANGE_END_MENU = 5;
+    private static final int RANGE_MENU_START = 1;
+    private static final int RANGE_MENU_END = 5;
     private static final String CONTINUE = "Для продолжения работы нажмите клавишу <Enter>";
 
     public static void main(String[] args) throws InterruptedException {
-        Scanner scn = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         Bookshelf bookshelf = new Bookshelf();
         String action = "Да";
-        textGreeting();
+        printTextGreeting();
         while (action.equals("Да") || action.equals("Пуст")) {
-            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
-            System.out.println(CONTINUE);
-            scn.nextLine();
+            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу\n");
             while (true) {
                 viewMenu();
                 System.out.println("Введите пункт меню:");
-                int pointMenu = enterMenuPoint(scn);
-                try {
-                    action = performActionForMenu(pointMenu, bookshelf, scn);
-                } catch (RuntimeException e) {
-                    System.out.println("Не удалось выполнить операцию");
-                }
+                int pointMenu = enterMenuPoint(sc);
+                action = execAction(pointMenu, bookshelf, sc);
                 if (action.equals("Пуст")) break;
                 if (action.equals("Нет")) break;
-                System.out.println(CONTINUE);
-                scn.nextLine();
+                pushEnter(sc);
                 viewCurrBooksCount(bookshelf);
                 viewFreeShelfCount(bookshelf);
                 viewBookshelf(bookshelf);
@@ -38,17 +32,25 @@ public class BookshelfTest {
         }
     }
 
-    private static void textGreeting() throws InterruptedException {
-        String text = "Добро пожаловать в приложение \"Книжный шкаф\"";
-        String[] arrText = text.split(" ");
-        for (String s : arrText) {
-            for (char sign : s.toCharArray()) {
-                System.out.print(sign);
+    private static void printTextGreeting() throws InterruptedException {
+        String msg = "Добро пожаловать в приложение \"Книжный шкаф\"";
+        String[] splittedMsg = msg.split(" ");
+        for (String s : splittedMsg) {
+            for (char ch : s.toCharArray()) {
+                System.out.print(ch);
                 Thread.sleep(100);
             }
             System.out.print(" ");
         }
         System.out.println();
+    }
+
+    private static void pushEnter(Scanner sc) {
+        while (true) {
+            System.out.println(CONTINUE);
+            String input = sc.nextLine();
+            if (input.isEmpty()) break;
+        }
     }
 
     private static void viewMenu() {
@@ -61,40 +63,47 @@ public class BookshelfTest {
                 """);
     }
 
-    private static int enterMenuPoint(Scanner scn) {
+    private static int enterMenuPoint(Scanner sc) {
         while (true) {
+            int input;
             try {
-                String inputText = scn.nextLine().trim();
-                int input = Integer.parseInt(inputText);
-                boolean isValid = isValidPointMenu(input);
-                if (isValid) return input;
-            } catch (NumberFormatException e) {
+                input = sc.nextInt();
+                if (!isValidMenuPoint(input)) {
+                    throw new InputMismatchException();
+                }
+                return input;
+            } catch (InputMismatchException e) {
                 System.out.println("Ошибка: введите номер из списка:");
+                sc.nextLine();
             }
         }
     }
 
-    private static boolean isValidPointMenu(int input) {
-        return input >= RANGE_START_MENU && input <= RANGE_END_MENU;
+    private static boolean isValidMenuPoint(int input) {
+        return input >= RANGE_MENU_START && input <= RANGE_MENU_END;
     }
 
-    private static String performActionForMenu(int pointMenu, Bookshelf bookshelf, Scanner scn) {
+    private static String execAction(int pointMenu, Bookshelf bookshelf, Scanner sc) {
         switch (pointMenu) {
             case 1 -> {
                 System.out.println("Вы выбрали добавить книгу.");
-                addBook(bookshelf, scn);
+                addBook(bookshelf, sc);
+                sc.nextLine();
             }
             case 2 -> {
                 System.out.println("Вы выбрали удалить книгу.");
-                deleteBook(bookshelf, scn);
+                sc.nextLine();
+                deleteBook(bookshelf, sc);
                 if (bookshelf.getBooksCount() == 0) return "Пуст";
             }
             case 3 -> {
                 System.out.println("Вы выбрали найти книгу по названию.");
-                findBook(bookshelf, scn);
+                sc.nextLine();
+                findBook(bookshelf, sc);
             }
             case 4 -> {
                 System.out.println("Вы выбрали очистить шкаф.");
+                sc.nextLine();
                 bookshelf.clear();
                 System.out.println("Шкаф очищен.");
                 return "Пуст";
@@ -107,33 +116,37 @@ public class BookshelfTest {
         return "Да";
     }
 
-    private static void addBook(Bookshelf bookshelf, Scanner scn) {
+    private static void addBook(Bookshelf bookshelf, Scanner sc) {
         System.out.println("Введите автора книги:");
-        String author = scn.nextLine().trim();
-        System.out.println("Введите название книги:");
-        String title = scn.nextLine().trim();
+        sc.nextLine();
+        String author = sc.nextLine().trim();
+        String title = inputBookTitle(sc);
         System.out.println("Введите год издания книги:");
-        int yearProduction;
         while (true) {
             try {
-                yearProduction = Integer.parseInt(scn.nextLine().trim());
-                Book book1 = new Book(author, title, yearProduction);
-                boolean isAdded = bookshelf.add(book1);
+                int published = sc.nextInt();
+                Book book = new Book(author, title, published);
+                boolean isAdded = bookshelf.add(book);
                 if (isAdded) {
                     System.out.println("Книга добавлена");
                 } else if (bookshelf.getBooksCount() == Bookshelf.TOTAL_BOOKS) {
                     System.out.println("Не удалось добавить книгу.В книжном шкафу закончилось место");
                 }
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Введите год издания книги цифрами");
+                sc.nextLine();
             }
         }
     }
 
-    private static void deleteBook(Bookshelf bookshelf, Scanner scn) {
-        System.out.println("Введите название книги, которую хотите удалить:");
-        String title = scn.nextLine().trim();
+    private static String inputBookTitle(Scanner sc) {
+        System.out.println("Введите название книги");
+        return sc.nextLine().trim();
+    }
+
+    private static void deleteBook(Bookshelf bookshelf, Scanner sc) {
+        String title = inputBookTitle(sc);
         boolean isRemoved = bookshelf.delete(title);
         if (isRemoved) {
             System.out.println("Книга " + title + " удалена.");
@@ -142,13 +155,13 @@ public class BookshelfTest {
         }
     }
 
-    private static void findBook(Bookshelf bookshelf, Scanner scn) {
-        System.out.println("Введите название книги");
-        String title = scn.nextLine().trim();
-        Book bookByTitle = bookshelf.find(title);
-        if (bookByTitle != null) {
+    private static void findBook(Bookshelf bookshelf, Scanner sc) {
+        String title = inputBookTitle(sc);
+        Book foundBook = bookshelf.find(title);
+        pushEnter(sc);
+        if (foundBook != null) {
             System.out.println("По названию найдены следующие книги: ");
-            printFoundBooks(bookByTitle);
+            printFoundBooks(foundBook);
         } else {
             System.out.println("Книга не найдена");
         }
@@ -159,31 +172,14 @@ public class BookshelfTest {
     }
 
     private static void viewBookshelf(Bookshelf bookshelf) {
-        int maxLength = findMaxLengthBookshelf(bookshelf);
         for (Book book : bookshelf.getBooks()) {
             if (book == null) return;
-            String pipe = "|".repeat(1);
-            System.out.print(pipe);
-            System.out.print(book);
-            int len = maxLength - book.toString().length();
-            String emptySpace = " ".repeat(len);
-            System.out.print(emptySpace);
-            System.out.println(pipe);
-            System.out.print(pipe);
-            String dash = "-".repeat(maxLength);
-            System.out.print(dash);
-            System.out.println(pipe);
+            StringBuilder sb = new StringBuilder("|");
+            int max = bookshelf.getMaxLength();
+            int spaceNum = max - book.toString().length();
+            sb.append(book).repeat(" ", spaceNum).append("|").append("\n|").repeat("-", max).append("|");
+            System.out.println(sb);
         }
-    }
-
-    private static int findMaxLengthBookshelf(Bookshelf bookshelf) {
-        int maxLength = 0;
-        for (Book book : bookshelf.getBooks()) {
-            if (book == null) break;
-            String con = book.toString();
-            maxLength = Math.max(maxLength, con.length());
-        }
-        return maxLength;
     }
 
     private static void viewCurrBooksCount(Bookshelf bookshelf) {

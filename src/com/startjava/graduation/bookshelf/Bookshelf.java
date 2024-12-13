@@ -7,6 +7,7 @@ public class Bookshelf {
     static final int TOTAL_BOOKS = 10;
     private int booksCount;
     private final Book[] books;
+    private int maxLength;
 
     public Bookshelf() {
         books = new Book[TOTAL_BOOKS];
@@ -17,28 +18,53 @@ public class Bookshelf {
     }
 
     public Book[] getBooks() {
-        return books;
+        return Arrays.copyOf(books, booksCount);
+    }
+
+    public int getMaxLength() {
+        return maxLength;
     }
 
     public boolean add(Book book) {
         if (booksCount >= TOTAL_BOOKS) return false;
-        books[booksCount] = book;
-        booksCount++;
+        books[booksCount++] = book;
+        findMaxLengthBookshelfAdded(book);
         return true;
     }
 
+    private void findMaxLengthBookshelfAdded(Book book) {
+        int len = book.toString().length();
+        if (maxLength < len) {
+            maxLength = len;
+        }
+    }
 
     public boolean delete(String title) {
         for (int i = 0; i < books.length; i++) {
             if (books[i].getTitle().equals(title)) {
-                int numberOfElements = booksCount - (i + 1);
-                System.arraycopy(books, i + 1, books, i, numberOfElements);
-                books[booksCount - 1] = null;
+                int len = books[i].toString().length();
                 booksCount--;
+                int elementsNumber = booksCount - i;
+                System.arraycopy(books, i + 1, books, i, elementsNumber);
+                books[booksCount] = null;
+                findMaxLengthBookshelfDeleted(len);
                 return true;
             }
         }
         return false;
+    }
+
+    private void findMaxLengthBookshelfDeleted(int len) {
+        if (maxLength == len) {
+            maxLength = 0;
+            for (Book currBook : books) {
+                if (currBook == null) break;
+                int currLen = currBook.toString().length();
+                if (maxLength < currLen) {
+                    maxLength = currLen;
+                }
+            }
+        }
     }
 
     public Book find(String title) {
