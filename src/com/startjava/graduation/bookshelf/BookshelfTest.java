@@ -19,11 +19,11 @@ public class BookshelfTest {
             while (true) {
                 viewMenu();
                 System.out.println("Введите пункт меню:");
-                int pointMenu = enterMenuPoint(sc);
-                action = execAction(pointMenu, bookshelf, sc);
+                int menuPoint = enterMenuPoint(sc);
+                action = execAction(menuPoint, bookshelf, sc);
                 if (action.equals("Пуст")) break;
                 if (action.equals("Нет")) break;
-                pushEnter(sc);
+                inputEnter(sc);
                 viewCurrBooksCount(bookshelf);
                 viewFreeShelfCount(bookshelf);
                 viewBookshelf(bookshelf);
@@ -43,14 +43,6 @@ public class BookshelfTest {
             System.out.print(" ");
         }
         System.out.println();
-    }
-
-    private static void pushEnter(Scanner sc) {
-        while (true) {
-            System.out.println(CONTINUE);
-            String input = sc.nextLine();
-            if (input.isEmpty()) break;
-        }
     }
 
     private static void viewMenu() {
@@ -126,10 +118,9 @@ public class BookshelfTest {
             try {
                 int published = sc.nextInt();
                 Book book = new Book(author, title, published);
-                boolean isAdded = bookshelf.add(book);
-                if (isAdded) {
+                if (bookshelf.add(book)) {
                     System.out.println("Книга добавлена");
-                } else if (bookshelf.getBooksCount() == Bookshelf.TOTAL_BOOKS) {
+                } else if (bookshelf.getBooksCount() >= Bookshelf.TOTAL_BOOKS) {
                     System.out.println("Не удалось добавить книгу.В книжном шкафу закончилось место");
                 }
                 break;
@@ -147,8 +138,7 @@ public class BookshelfTest {
 
     private static void deleteBook(Bookshelf bookshelf, Scanner sc) {
         String title = inputBookTitle(sc);
-        boolean isRemoved = bookshelf.delete(title);
-        if (isRemoved) {
+        if (bookshelf.delete(title)) {
             System.out.println("Книга " + title + " удалена.");
         } else {
             System.out.println("Не удалось удалить книгу " + title);
@@ -158,7 +148,7 @@ public class BookshelfTest {
     private static void findBook(Bookshelf bookshelf, Scanner sc) {
         String title = inputBookTitle(sc);
         Book foundBook = bookshelf.find(title);
-        pushEnter(sc);
+        inputEnter(sc);
         if (foundBook != null) {
             System.out.println("По названию найдены следующие книги: ");
             printFoundBooks(foundBook);
@@ -167,8 +157,16 @@ public class BookshelfTest {
         }
     }
 
+    private static void inputEnter(Scanner sc) {
+        String input = "not empty";
+        while (!input.isEmpty()) {
+            System.out.println(CONTINUE);
+            input = sc.nextLine();
+        }
+    }
+
     private static void printFoundBooks(Book foundBook) {
-        System.out.println(foundBook.toString());
+        System.out.println(foundBook);
     }
 
     private static void viewBookshelf(Bookshelf bookshelf) {

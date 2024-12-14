@@ -28,11 +28,11 @@ public class Bookshelf {
     public boolean add(Book book) {
         if (booksCount >= TOTAL_BOOKS) return false;
         books[booksCount++] = book;
-        findMaxLengthBookshelfAdded(book);
+        updateMaxLength(book);
         return true;
     }
 
-    private void findMaxLengthBookshelfAdded(Book book) {
+    private void updateMaxLength(Book book) {
         int len = book.toString().length();
         if (maxLength < len) {
             maxLength = len;
@@ -47,22 +47,19 @@ public class Bookshelf {
                 int elementsNumber = booksCount - i;
                 System.arraycopy(books, i + 1, books, i, elementsNumber);
                 books[booksCount] = null;
-                findMaxLengthBookshelfDeleted(len);
+                updateMaxLength(len);
                 return true;
             }
         }
         return false;
     }
 
-    private void findMaxLengthBookshelfDeleted(int len) {
+    private void updateMaxLength(int len) {
         if (maxLength == len) {
             maxLength = 0;
             for (Book currBook : books) {
                 if (currBook == null) break;
-                int currLen = currBook.toString().length();
-                if (maxLength < currLen) {
-                    maxLength = currLen;
-                }
+                updateMaxLength(currBook);
             }
         }
     }
@@ -78,7 +75,7 @@ public class Bookshelf {
     }
 
     public void clear() {
-        Arrays.fill(books, 0, TOTAL_BOOKS, null);
+        Arrays.fill(books, 0, booksCount, null);
         booksCount = 0;
     }
 }
