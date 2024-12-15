@@ -1,5 +1,7 @@
 package com.startjava.graduation.bookshelf;
 
+import com.startjava.lesson_2_3_4.guess.NotFoundException;
+
 import java.util.Arrays;
 
 public class Bookshelf {
@@ -25,11 +27,9 @@ public class Bookshelf {
         return maxLength;
     }
 
-    public boolean add(Book book) {
-        if (booksCount >= TOTAL_BOOKS) return false;
+    public void add(Book book) {
         books[booksCount++] = book;
         updateMaxLength(book);
-        return true;
     }
 
     private void updateMaxLength(Book book) {
@@ -39,8 +39,8 @@ public class Bookshelf {
         }
     }
 
-    public boolean delete(String title) {
-        for (int i = 0; i < books.length; i++) {
+    public void delete(String title) {
+        for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
                 int len = books[i].toString().length();
                 booksCount--;
@@ -48,10 +48,10 @@ public class Bookshelf {
                 System.arraycopy(books, i + 1, books, i, elementsNumber);
                 books[booksCount] = null;
                 updateMaxLength(len);
-                return true;
+                return;
             }
         }
-        return false;
+        throw new NotFoundException("Введенная для удаления книга не найдена");
     }
 
     private void updateMaxLength(int len) {
@@ -71,7 +71,7 @@ public class Bookshelf {
                 return book;
             }
         }
-        return null;
+        throw new NotFoundException("Книга не найдена");
     }
 
     public void clear() {
