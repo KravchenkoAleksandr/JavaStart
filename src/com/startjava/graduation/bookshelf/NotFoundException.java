@@ -1,4 +1,4 @@
-package com.startjava.lesson_2_3_4.guess;
+package com.startjava.graduation.bookshelf;
 
 public class NotFoundException extends RuntimeException {
 

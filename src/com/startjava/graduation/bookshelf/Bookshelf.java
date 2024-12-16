@@ -1,7 +1,5 @@
 package com.startjava.graduation.bookshelf;
 
-import com.startjava.lesson_2_3_4.guess.NotFoundException;
-
 import java.util.Arrays;
 
 public class Bookshelf {
@@ -29,14 +27,8 @@ public class Bookshelf {
 
     public void add(Book book) {
         books[booksCount++] = book;
-        updateMaxLength(book);
-    }
-
-    private void updateMaxLength(Book book) {
         int len = book.toString().length();
-        if (maxLength < len) {
-            maxLength = len;
-        }
+        updateMaxLength(len);
     }
 
     public void delete(String title) {
@@ -47,21 +39,11 @@ public class Bookshelf {
                 int elementsNumber = booksCount - i;
                 System.arraycopy(books, i + 1, books, i, elementsNumber);
                 books[booksCount] = null;
-                updateMaxLength(len);
+                recalculateMaxLength(len);
                 return;
             }
         }
         throw new NotFoundException("Введенная для удаления книга не найдена");
-    }
-
-    private void updateMaxLength(int len) {
-        if (maxLength == len) {
-            maxLength = 0;
-            for (Book currBook : books) {
-                if (currBook == null) break;
-                updateMaxLength(currBook);
-            }
-        }
     }
 
     public Book find(String title) {
@@ -77,5 +59,20 @@ public class Bookshelf {
     public void clear() {
         Arrays.fill(books, 0, booksCount, null);
         booksCount = 0;
+    }
+
+    private void updateMaxLength(int len) {
+        maxLength = Math.max(maxLength, len);
+    }
+
+    private void recalculateMaxLength(int len) {
+        if (maxLength == len) {
+            maxLength = 0;
+            for (Book currBook : books) {
+                if (currBook == null) break;
+                int newLen = currBook.toString().length();
+                updateMaxLength(newLen);
+            }
+        }
     }
 }
