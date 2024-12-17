@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 public class BookshelfTest {
 
-    private static final int RANGE_MENU_START = 1;
-    private static final int RANGE_MENU_END = 5;
+    static final int RANGE_MENU_START = 1;
+    static final int RANGE_MENU_END = 5;
 
     public static void main(String[] args) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
         Bookshelf bookshelf = new Bookshelf();
-        String action = "START";
+        String action = "";
         printTextGreeting();
         while (!action.equals("EXIT")) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу\n");
@@ -19,7 +19,7 @@ public class BookshelfTest {
                 viewMenu();
                 System.out.println("Введите пункт меню:");
                 int menuPoint = enterMenuPoint(sc);
-                Menu currMenuPoint = menuItem(menuPoint);
+                Menu currMenuPoint = Menu.chooseMenu(menuPoint);
                 action = execAction(currMenuPoint, sc, bookshelf);
                 if (action.equals("EXIT")) break;
                 inputEnter(sc);
@@ -75,10 +75,6 @@ public class BookshelfTest {
         return input >= RANGE_MENU_START && input <= RANGE_MENU_END;
     }
 
-    private static Menu menuItem(int menuPoint) {
-        return Menu.chooseMenu(menuPoint);
-    }
-
     private static String execAction(Menu menu, Scanner sc, Bookshelf bookshelf) {
         switch (menu) {
             case ADD -> {
@@ -101,14 +97,16 @@ public class BookshelfTest {
                 sc.nextLine();
                 bookshelf.clear();
                 System.out.println("Шкаф очищен.");
-                return "ERROR";
+                return "CONTINUE";
             }
             case EXIT -> {
                 return "EXIT";
             }
-            default -> System.out.println("Нет подходящего пункта меню");
+            default -> {
+                return "ERROR";
+            }
         }
-        return "ERROR";
+        return "CONTINUE";
     }
 
     private static void addBook(Bookshelf bookshelf, Scanner sc) {

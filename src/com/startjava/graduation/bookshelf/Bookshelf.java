@@ -61,10 +61,6 @@ public class Bookshelf {
         booksCount = 0;
     }
 
-    private void updateMaxLength(int len) {
-        maxLength = Math.max(maxLength, len);
-    }
-
     private void recalculateMaxLength(int len) {
         if (maxLength == len) {
             maxLength = 0;
@@ -74,5 +70,9 @@ public class Bookshelf {
                 updateMaxLength(newLen);
             }
         }
+    }
+
+    private void updateMaxLength(int len) {
+        maxLength = Math.max(maxLength, len);
     }
 }

@@ -7,25 +7,21 @@ public enum Menu {
     CLEAR(4),
     EXIT(5);
 
-    public final int menuPoint;
+    private final int menuPoint;
 
     Menu(int menuPoint) {
         this.menuPoint = menuPoint;
     }
 
+    public int getMenuPoint() {
+        return menuPoint;
+    }
+
     public static Menu chooseMenu(int menuPoint) {
-        if (ADD.menuPoint == menuPoint) {
-            return ADD;
-        } else if (DELETE.menuPoint == menuPoint) {
-            return DELETE;
-        } else if (FIND.menuPoint == menuPoint) {
-            return FIND;
-        } else if (CLEAR.menuPoint == menuPoint) {
-            return CLEAR;
-        } else if (EXIT.menuPoint == menuPoint) {
-            return EXIT;
+        if (menuPoint < BookshelfTest.RANGE_MENU_START || menuPoint > BookshelfTest.RANGE_MENU_END) {
+            throw new IllegalArgumentException("Ошибка: введите номер из списка:");
         }
-        throw new IllegalArgumentException("Ошибка: введите номер из списка:");
+        return Menu.values()[menuPoint - 1];
     }
 }
 
