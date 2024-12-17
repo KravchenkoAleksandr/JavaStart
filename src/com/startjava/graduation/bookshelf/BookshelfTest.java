@@ -11,9 +11,9 @@ public class BookshelfTest {
     public static void main(String[] args) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
         Bookshelf bookshelf = new Bookshelf();
-        String action = "";
+        int action = 0;
         printTextGreeting();
-        while (!action.equals("EXIT")) {
+        while (action != Menu.EXIT.getMenuPoint()) {
             System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу\n");
             while (true) {
                 viewMenu();
@@ -21,7 +21,7 @@ public class BookshelfTest {
                 int menuPoint = enterMenuPoint(sc);
                 Menu currMenuPoint = Menu.chooseMenu(menuPoint);
                 action = execAction(currMenuPoint, sc, bookshelf);
-                if (action.equals("EXIT")) break;
+                if (action == Menu.EXIT.getMenuPoint()) break;
                 inputEnter(sc);
                 if (bookshelf.getBooksCount() == 0) break;
                 viewCurrBooksCount(bookshelf);
@@ -75,7 +75,7 @@ public class BookshelfTest {
         return input >= RANGE_MENU_START && input <= RANGE_MENU_END;
     }
 
-    private static String execAction(Menu menu, Scanner sc, Bookshelf bookshelf) {
+    private static int execAction(Menu menu, Scanner sc, Bookshelf bookshelf) {
         switch (menu) {
             case ADD -> {
                 System.out.println("Вы выбрали добавить книгу.");
@@ -97,16 +97,12 @@ public class BookshelfTest {
                 sc.nextLine();
                 bookshelf.clear();
                 System.out.println("Шкаф очищен.");
-                return "CONTINUE";
             }
             case EXIT -> {
-                return "EXIT";
-            }
-            default -> {
-                return "ERROR";
+                return menu.getMenuPoint();
             }
         }
-        return "CONTINUE";
+        return menu.getMenuPoint();
     }
 
     private static void addBook(Bookshelf bookshelf, Scanner sc) {
