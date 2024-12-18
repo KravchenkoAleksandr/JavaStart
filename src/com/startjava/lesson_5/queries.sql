@@ -18,14 +18,15 @@ SELECT *
 \echo 'Вывод: всех роботов, кроме Mark-1 и Mark-4';
 SELECT *
   FROM jaegers
- WHERE mark NOT IN ('Mark-1', 'Mark-4')
- ORDER BY model_name DESC;
+ WHERE mark 
+       NOT IN ('Mark-1', 'Mark-4')
+ ORDER BY mark DESC;
 
 \echo 'Вывод: информацию о самых старых роботах';
 SELECT *
   FROM jaegers
  WHERE launch = 
-         (SELECT Max(launch)
+       (SELECT MAX(launch)
   FROM jaegers)
  ORDER BY model_name;
 
@@ -34,18 +35,21 @@ SELECT *
 SELECT model_name, mark, launch, kaiju_kill
   FROM jaegers
  WHERE kaiju_kill = 
-        (SELECT Max(kaiju_kill) FROM jaegers)
+       (SELECT MAX(kaiju_kill)
+  FROM jaegers)
  ORDER BY model_name; 
 
 
 \echo 'Вывод: средний вес роботов, округлив его до трех знаков после запятой';
-SELECT ROUND(AVG(weight)::NUMERIC , 3) 
+SELECT
+       ROUND(AVG(weight), 3) AS avg_weight
   FROM jaegers;
 
 \echo 'Вывод: увеличьте на единицу количество уничтоженных kaiju у неразрушенных роботов,а затем отобразите таблицу';
 UPDATE jaegers
    SET kaiju_kill = kaiju_kill + 1
  WHERE status = 'Active';
+
 SELECT *
   FROM jaegers;
 
@@ -53,5 +57,6 @@ SELECT *
 DELETE 
   FROM jaegers
  WHERE status = 'Destroyed';
+
 SELECT *
   FROM jaegers;

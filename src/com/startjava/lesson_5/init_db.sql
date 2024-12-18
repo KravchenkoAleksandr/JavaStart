@@ -1,17 +1,17 @@
 \c robots;
 
-DROP TABLE jaegers;
-
-CREATE TABLE jaegers(
-    id SERIAL PRIMARY KEY,
-    model_name TEXT,
-    mark CHAR(6),
-    height INTEGER,
-    weight DOUBLE PRECISION,
-    status TEXT,
-    origin TEXT,
-    launch DATE,
-    kaiju_kill INTEGER);
+CREATE TABLE jaegers (
+    PRIMARY KEY (id),
+    id         SERIAL   NOT NULL,
+    model_name TEXT     NOT NULL,
+    mark       CHAR(6)  NOT NULL,
+    height     INTEGER,
+    weight     NUMERIC,
+    status     TEXT     NOT NULL,
+    origin     TEXT,
+    launch     DATE     NOT NULL,
+    kaiju_kill INTEGER  NOT NULL
+);
 
 \i populate.sql;
 
