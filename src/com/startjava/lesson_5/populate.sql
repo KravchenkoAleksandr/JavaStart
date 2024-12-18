@@ -1,5 +1,5 @@
 INSERT INTO jaegers (model_name, mark, height, weight, status, origin, launch, kaiju_kill)
-VALUES ('Romeo Blue',     'Mark-1', 255, 7.775,  'Active',    'United States of America', 'December 15, 2015', 2),
+VALUES ('Romeo Blue',     'Mark-1', 255, 7.775,  'Active',    'United States of America', 'December 15, 2007', 2),
        ('Horizon Brave',  'Mark-1', 238, 7.890,  'Destroyed', 'China',                    'December 22, 2015', 2),
        ('Tacit Ronin',    'Mark-1', 244, 7.450,  'Active',    'Japan',                    'December 6, 2015',  3),
        ('Gipsy Danger',   'Mark-3', 260, 1.980,  'Destroyed', 'United States of America', 'July 10, 2017',     9),
